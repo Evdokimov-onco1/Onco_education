@@ -1,0 +1,38 @@
+name: Devin — запуск задачи
+
+# Запускается вручную из вкладки Actions. Ключ берётся из секрета DEVIN_API_KEY,
+# в код не попадает. Создаёт сессию Devin по заданному промпту и печатает ссылку.
+
+on:
+  workflow_dispatch:
+    inputs:
+      prompt:
+        description: "Задача для Devin"
+        required: true
+        default: "Прочитай DEVIN.md в корне и выполни Задачу 1: убедись, что index.html и fos-data.json в корне, включи GitHub Pages (branch main, /(root)), проверь, что сайт открывается и подгружает fos-data.json. Пришли рабочую ссылку в PR."
+
+jobs:
+  kickoff:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Создать сессию Devin
+        env:
+          DEVIN_API_KEY: ${{ secrets.DEVIN_API_KEY }}
+          PROMPT: ${{ github.event.inputs.prompt }}
+        run: |
+          if [ -z "$DEVIN_API_KEY" ]; then
+            echo "::error::Секрет DEVIN_API_KEY не задан. Settings → Secrets and variables → Actions → New repository secret."
+            exit 1
+          fi
+          body=$(jq -n --arg p "$PROMPT" '{prompt:$p, title:"Onco_education"}')
+          resp=$(curl -sS -X POST https://api.devin.ai/v1/sessions \
+            -H "Authorization: Bearer $DEVIN_API_KEY" \
+            -H "Content-Type: application/json" \
+            -d "$body")
+          echo "$resp" | jq . || echo "$resp"
+          url=$(echo "$resp" | jq -r '.url // empty')
+          if [ -n "$url" ]; then
+            echo "### Сессия Devin создана: $url" >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "::warning::Не удалось получить ссылку на сессию — проверьте ответ выше и корректность ключа."
+          fi
