@@ -1,0 +1,98 @@
+{
+  "_meta": {
+    "folder": "https://drive.google.com/drive/folders/1NMOVu7uhu1TAbN3jm3YKBlswrtEaaG-A",
+    "updated": "2026-07-11",
+    "note": "Единый источник правды для дашборда. Правьте owners/approved/drive и коммитьте в main — сайт подхватит."
+  },
+  "onk:1": {
+    "owners": [
+      "Евдокимов",
+      "Евдокимов",
+      "Ронзин",
+      "Ронзин",
+      "Ронзин",
+      "Евдокимов",
+      "Евдокимов"
+    ],
+    "approved": false,
+    "drive": "https://docs.google.com/document/d/1zS9T13M2W2RRMM4rmIDzzJdSAYwbbB_3cU4hdCuf6g0/edit"
+  },
+  "onk:2": {
+    "owners": [
+      "Ронзин",
+      "Глазкова",
+      "Кобзев",
+      "Глазкова",
+      "Глазкова",
+      "Евдокимов"
+    ],
+    "approved": false,
+    "drive": "https://docs.google.com/document/d/1J5N5iFacMcuUlZkSKjg9LE9nIxiVZ07NEtXqqQkInvQ/edit"
+  },
+  "onk:3": {
+    "owners": [
+      "Евдокимов",
+      "Петухов",
+      "Евдокимов",
+      "Евдокимов",
+      "Евдокимов"
+    ],
+    "approved": false,
+    "drive": "https://docs.google.com/document/d/1xz8nDQgP0fleELXQGK8L5Ws5-RgffqWXixoUe-YiGbE/edit"
+  },
+  "onk:4": {
+    "owners": [
+      "Петухов",
+      "Евдокимов"
+    ],
+    "approved": false,
+    "drive": "https://docs.google.com/document/d/1j7BcO2icr-31e_q150cHIAYdDyXaPu95kXNukSXfqv8/edit"
+  },
+  "him:1": {
+    "owners": [
+      "Глазкова",
+      "Евдокимов",
+      "Глазкова",
+      "Глазкова",
+      "Глазкова"
+    ],
+    "approved": false,
+    "drive": "https://docs.google.com/document/d/1iEXOscij5S12x0OA48fhQuwwIvHZg7GKLbYvfUAeHMY/edit"
+  },
+  "hir:2": {
+    "owners": [
+      "Ронзин",
+      "Ронзин",
+      "Ронзин",
+      "Кобзев",
+      "Ронзин",
+      "Ронзин"
+    ],
+    "approved": false,
+    "drive": "https://docs.google.com/document/d/1BQNxfhhuKqH1aLqTOsvGaFOf_zs6KnfXT1jEHrHLTH8/edit"
+  },
+  "lt:2": {
+    "owners": [
+      "Петухов",
+      "Петухов",
+      "Петухов",
+      "Петухов",
+      "Петухов"
+    ],
+    "approved": false,
+    "drive": "https://docs.google.com/document/d/1jB9K9yWlxquOYMPMmCRFuO1kU7Wl4xTyPdIibRwVD8c/edit"
+  },
+  "mam:2": {
+    "owners": [
+      "Ронзин",
+      "Ронзин",
+      "Глазкова",
+      "Ронзин",
+      "Глазкова",
+      "Петухов",
+      "Глазкова"
+    ],
+    "approved": false,
+    "drive": "https://docs.google.com/document/d/1GLOUkn5EfNCGMPCIVNRh1c7GChGcRG1IrEfCmIIzBvk/edit"
+  }
+}
