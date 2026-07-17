@@ -1,0 +1,55 @@
+name: Deploy to Timeweb
+
+# Заливает статику сайта на хостинг Timeweb по FTP при каждом изменении
+# index.html или fos-data.json в ветке main. Также можно запустить вручную
+# (вкладка Actions → Deploy to Timeweb → Run workflow).
+#
+# Требуется завести в репозитории (Settings → Secrets and variables → Actions):
+#   Секреты (Secrets):
+#     TIMEWEB_FTP_HOST      — FTP-хост Timeweb (например, ftp.ваш-домен.ru или IP)
+#     TIMEWEB_FTP_USER      — FTP-логин
+#     TIMEWEB_FTP_PASSWORD  — FTP-пароль
+#   Переменная (Variables), необязательно:
+#     TIMEWEB_SERVER_DIR    — папка сайта на хостинге (по умолчанию /public_html/)
+#
+# Заливаются ТОЛЬКО index.html и fos-data.json (остальное в репозитории на сайт
+# не попадает). Загрузка инкрементальная — меняются только изменённые файлы.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - index.html
+      - fos-data.json
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-timeweb
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Собрать статику для деплоя
+        run: |
+          mkdir -p dist
+          cp index.html fos-data.json dist/
+          ls -la dist
+
+      - name: Залить на Timeweb по FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.TIMEWEB_FTP_HOST }}
+          username: ${{ secrets.TIMEWEB_FTP_USER }}
+          password: ${{ secrets.TIMEWEB_FTP_PASSWORD }}
+          # Explicit FTPS (шифрование). Если Timeweb ругается на сертификат —
+          # заменить protocol на ftp, либо добавить строку `security: loose`.
+          protocol: ftps
+          local-dir: ./dist/
+          server-dir: ${{ vars.TIMEWEB_SERVER_DIR || '/public_html/' }}
+          # Ничего на хостинге не удаляем — только добавляем/обновляем.
+          dangerous-clean-slate: false
