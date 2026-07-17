@@ -94,6 +94,21 @@ td.c{padding:0;width:165px}
 .n{font:500 10.5px/1.4 'IBM Plex Mono',monospace;background:#F2F5F7;border-radius:3px;padding:4px 7px;color:var(--muted)}
 .n b{color:var(--ink);font-weight:600}
 .n.e{color:var(--faint)}
+/* прогресс по отдельным заданиям */
+.numgrp{padding:0 11px 8px}
+.nlab{display:block;font:600 9.5px/1.4 'IBM Plex Mono',monospace;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin-bottom:4px}
+.nlab b{color:var(--accent)}
+.qps{display:flex;flex-wrap:wrap;gap:3px}
+.qp{font:600 10.5px/1 'IBM Plex Mono',monospace;min-width:23px;padding:4px 5px;border:1px solid var(--line2);border-radius:3px;background:var(--panel);color:var(--muted);cursor:pointer;transition:.1s}
+.qp:hover{border-color:var(--accent);color:var(--accent)}
+.qp.done{background:var(--ok);border-color:var(--ok);color:#fff}
+.thp{font:600 9.5px/1 'IBM Plex Mono',monospace;padding:3px 7px;border-radius:10px;background:#F2F5F7;color:var(--muted);white-space:nowrap;align-self:center}
+.thp.full{background:var(--ok-bg);color:var(--ok)}
+.pbar{height:6px;background:var(--line);border-radius:3px;overflow:hidden;margin:2px 0 4px}
+.pbar i{display:block;height:100%;background:var(--ok);border-radius:3px;transition:width .15s}
+.cellprog{font:600 10px/1.3 'IBM Plex Mono',monospace;color:var(--ok);margin-bottom:12px}
+.dbar{height:4px;background:var(--line);border-radius:3px;overflow:hidden;margin-top:5px}
+.dbar i{display:block;height:100%;background:var(--ok);border-radius:3px}
 .warnbox{background:var(--warn-bg);border-left:3px solid var(--warn);padding:9px 11px;border-radius:0 3px 3px 0;font-size:12px;color:#7A5210;margin-bottom:12px;line-height:1.45}
 .appr{margin-top:16px;border:1px solid var(--line2);border-radius:var(--r);padding:12px;background:#FAFBFC;display:flex;justify-content:space-between;align-items:center;gap:10px}
 .appr.on{border-color:var(--accent);background:var(--accent-soft)}
@@ -160,6 +175,21 @@ const DISC=[["Онкология","Б1.Б.1",{1:"onk1",2:"onk2",3:"onk3",4:"onk4
             ["Онкомаммология","Б1.В.ДВ.1.1",{2:"mam2"}]];
 const KEY="fos-state-v4";
 
+/* ===== прогресс по отдельным заданиям (фича №1) ===== */
+const PKEY="fos-prog-v1"; let PROG={};
+function loadProg(){try{const v=localStorage.getItem(PKEY);if(v)PROG=JSON.parse(v)||{};}catch(e){PROG={};}}
+function saveProg(){try{localStorage.setItem(PKEY,JSON.stringify(PROG));}catch(e){}}
+// "15–16, 19, 35–47" -> [15,16,19,35,...,47]
+function parseNums(str){const out=[];if(!str)return out;String(str).split(",").forEach(p=>{p=p.trim();if(!p)return;
+  const m=p.match(/^(\d+)\s*[–-]\s*(\d+)$/);if(m){for(let n=+m[1];n<=+m[2];n++)out.push(n);}else{const n=parseInt(p,10);if(!isNaN(n))out.push(n);}});return out;}
+function isDone(key,ty,n){return !!(PROG[key]&&PROG[key][ty]&&PROG[key][ty][n]);}
+function toggleDone(key,ty,n){PROG[key]=PROG[key]||{};PROG[key][ty]=PROG[key][ty]||{};
+  if(PROG[key][ty][n])delete PROG[key][ty][n];else PROG[key][ty][n]=1;saveProg();}
+function themeProg(key,t){let d=0,tot=0;["tests","theory","tasks"].forEach(ty=>parseNums(t[ty]).forEach(n=>{tot++;if(isDone(key,ty,n))d++;}));return {d,tot};}
+function fosProg(key){let d=0,tot=0;D.fos[key].themes.forEach(t=>{const p=themeProg(key,t);d+=p.d;tot+=p.tot;});return {d,tot};}
+function teacherProg(k){let d=0,tot=0;for(const key in D.fos)D.fos[key].themes.forEach(t=>{if(t.owner!==k)return;const p=themeProg(key,t);d+=p.d;tot+=p.tot;});return {d,tot};}
+const pct=(d,t)=>t?Math.round(d/t*100):0;
+
 function snap(){const s={};for(const k in D.fos){const f=D.fos[k];
   s[k]={owners:f.themes.map(t=>t.owner),approved:f.approved,drive:f.drive};}return s;}
 function applySnap(s){for(const k in s){const f=D.fos[k];if(!f)continue;const v=s[k];
@@ -172,7 +202,7 @@ function loadLocal(){try{const v=localStorage.getItem(KEY);if(v)applySnap(JSON.p
 async function boot(){
   try{const r=await fetch('fos-data.json',{cache:'no-store'});D=await r.json();}
   catch(e){$("#tb").innerHTML='<tr><td style="padding:20px;color:#B23B3B">Не найден fos-data.json — он должен лежать рядом с index.html</td></tr>';return;}
-  loadLocal(); renderDocs(); renderMatrix(); renderFoot();
+  loadLocal(); loadProg(); renderDocs(); renderMatrix(); renderFoot();
 }
 const loadOf=k=>{let n=0;for(const f of Object.values(D.fos))for(const t of f.themes)if(t.owner===k)n+=t.load;return n;};
 const themesOf=k=>{let n=0;for(const f of Object.values(D.fos))for(const t of f.themes)if(t.owner===k)n++;return n;};
@@ -180,14 +210,15 @@ const themesOf=k=>{let n=0;for(const f of Object.values(D.fos))for(const t of f.
 function renderDocs(){
   const keys=Object.keys(D.teachers);
   const max=Math.max(...keys.map(loadOf),1);
-  $("#docs").innerHTML=keys.map(k=>{const t=D.teachers[k],L=loadOf(k),TH=themesOf(k);
+  $("#docs").innerHTML=keys.map(k=>{const t=D.teachers[k],L=loadOf(k),TH=themesOf(k),P=teacherProg(k);
     const cls=FILTER?(FILTER===k?"on":"dim"):"";
     return `<button class="doc ${cls}" data-k="${k}">
       <div class="r1"><span class="av" style="background:${t.color}">${k[0]}</span>
         <span><span class="nm">${t.full}</span>${t.head?'<span class="role">руководитель · приёмка</span>':''}</span></div>
       <div class="sp">${t.sp}</div>
       <div class="bar"><i style="width:${Math.round(L/max*100)}%;background:${t.color}"></i></div>
-      <div class="num"><span>${TH} тем</span><span>${L} заданий</span></div></button>`;}).join("");
+      <div class="num"><span>${TH} тем · ${L} зад.</span><span>готово ${P.d}/${P.tot}</span></div>
+      <div class="dbar"><i style="width:${pct(P.d,P.tot)}%"></i></div></button>`;}).join("");
   $("#docs").querySelectorAll(".doc").forEach(b=>b.onclick=()=>{
     FILTER=(FILTER===b.dataset.k)?null:b.dataset.k;
     $("#clr").hidden=!FILTER; renderDocs(); renderMatrix();});
@@ -210,8 +241,10 @@ function renderMatrix(){
                :f.approved?`<span class="tag ap">✓ принят</span>`:`<span class="tag ex">есть файл</span>`;
       const cnt=f.status==="missing"?`создать: 80 тестов · 30 вопросов · 15 задач`
                :`${f.totals.tests} тестов · ${f.totals.theory} вопросов · ${f.totals.tasks} задач`;
+      const fp=f.status==="missing"?{d:0,tot:0}:fosProg(key);
+      const prog=f.status==="missing"?'':`<div class="pbar" style="margin-top:7px"><i style="width:${pct(fp.d,fp.tot)}%"></i></div><div class="cellprog" style="margin-bottom:0">готово ${fp.d}/${fp.tot}</div>`;
       td.innerHTML=`<div class="cell ${dim?'dim':''}" tabindex="0">
-        ${tag}<div class="cnt">${cnt}</div>
+        ${tag}<div class="cnt">${cnt}</div>${prog}
         <div class="chips">${owners.map(o=>{const t=D.teachers[o];const mut=FILTER&&o!==FILTER;
           return `<span class="chip ${mut?'mut':''}" style="background:${t?t.color:'#98A4B0'}" title="${t?t.full:o}">${o[0]}</span>`;}).join("")}</div>
         ${FILTER&&mineLoad?`<div class="mine">ваших заданий: ${mineLoad}</div>`:''}</div>`;
@@ -238,21 +271,37 @@ function openFos(key){
     : `<div class="stat"><div class="st"><b>${f.totals.tests}</b><span>тестов</span></div><div class="st"><b>${f.totals.theory}</b><span>вопросов</span></div><div class="st"><b>${f.totals.tasks}</b><span>задач</span></div></div>`;
   const opts=o=>Object.keys(D.teachers).map(k=>`<option value="${k}" ${o===k?'selected':''}>${D.teachers[k].full}</option>`).join("");
   const rows=f.themes.map((t,i)=>{
-    const dim=FILTER&&t.owner!==FILTER;
-    const num=(lab,v)=>v?`<span class="n">${lab} <b>${v}</b></span>`:`<span class="n e">${lab} —</span>`;
+    const dim=FILTER&&t.owner!==FILTER;const tp=themeProg(key,t);
+    const pills=(ty,lab,str)=>{const nums=parseNums(str);
+      if(!nums.length)return `<div class="numgrp"><span class="nlab">${lab} —</span></div>`;
+      const dn=nums.filter(n=>isDone(key,ty,n)).length;
+      return `<div class="numgrp"><span class="nlab">${lab} <b>${dn}/${nums.length}</b></span>
+        <div class="qps">${nums.map(n=>`<button class="qp ${isDone(key,ty,n)?'done':''}" data-t="${ty}" data-n="${n}" data-i="${i}" title="отметить задание готовым">${n}</button>`).join("")}</div></div>`;};
     return `<div class="th ${t.cross?'cross':''} ${dim?'dimmed':''}">
       <div class="top"><span class="nm">${t.name}${t.plan?'<span class="flag">план</span>':''}${t.cross?'<span class="flag">сквозной</span>':''}</span>
+        <span class="thp ${tp.tot&&tp.d===tp.tot?'full':''}">${tp.d}/${tp.tot}</span>
         <select data-i="${i}">${opts(t.owner)}</select></div>
-      <div class="nums">${num('тесты',t.tests)}${num('вопросы',t.theory)}${num('задачи',t.tasks)}<span class="n">всего <b>${t.load}</b></span></div>
+      ${pills('tests','тесты',t.tests)}${pills('theory','вопросы',t.theory)}${pills('tasks','задачи',t.tasks)}
     </div>`;}).join("");
-  $("#db").innerHTML=`${stats}${drive}${warn}
-    <div class="h3">Темы и закреплённые за ними задания · ${f.themes.length}</div>${rows}
+  const fp=miss?{d:0,tot:0}:fosProg(key);
+  const progbar=miss?'':`<div class="pbar"><i style="width:${pct(fp.d,fp.tot)}%"></i></div><div class="cellprog">готово ${fp.d} из ${fp.tot} заданий</div>`;
+  $("#db").innerHTML=`${stats}${progbar}${drive}${warn}
+    <div class="h3">Темы и задания · нажимайте на номер, чтобы отметить готовым · ${f.themes.length}</div>${rows}
     ${miss?`<div class="warnbox" style="margin-top:12px">ФОС не существует. Номера выше — <b>плановые квоты</b>. Черновик генерирует Devin по образцу существующих ФОС, содержание проверяет профильный врач.</div>`:''}
     <div class="appr ${f.approved?'on':''}">
       <div><div class="t">Приёмка руководителя</div><div class="s">Петухов Е.А. — подпись под готовым ФОС</div></div>
       <button id="ap" class="${f.approved?'on':''}">${f.approved?'✓ Принято':'Принять'}</button></div>`;
   $("#db").querySelectorAll("select[data-i]").forEach(s=>s.onchange=()=>{
     f.themes[+s.dataset.i].owner=s.value; save(); openFos(key); renderDocs(); renderMatrix();});
+  $("#db").querySelectorAll(".qp").forEach(b=>b.onclick=()=>{
+    toggleDone(key,b.dataset.t,+b.dataset.n); b.classList.toggle("done");
+    const grp=b.closest(".numgrp"),lab=grp.querySelector(".nlab b");
+    if(lab){lab.textContent=`${grp.querySelectorAll(".qp.done").length}/${grp.querySelectorAll(".qp").length}`;}
+    const t=f.themes[+b.dataset.i],tp=themeProg(key,t),badge=b.closest(".th").querySelector(".thp");
+    if(badge){badge.textContent=`${tp.d}/${tp.tot}`;badge.classList.toggle("full",tp.tot&&tp.d===tp.tot);}
+    const fp=fosProg(key),pb=$("#db").querySelector(".pbar i"),cp=$("#db").querySelector(".cellprog");
+    if(pb)pb.style.width=pct(fp.d,fp.tot)+"%"; if(cp)cp.textContent=`готово ${fp.d} из ${fp.tot} заданий`;
+    renderDocs(); renderMatrix();});
   $("#ap").onclick=()=>{f.approved=!f.approved; save(); openFos(key); renderMatrix();};
   $("#dw").classList.add("on"); $("#dw").setAttribute("aria-hidden","false"); $("#sc").classList.add("on");
 }
