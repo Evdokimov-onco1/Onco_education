@@ -3,667 +3,269 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Матрица ФОС · Онкология</title>
+<title>ФОС · Кафедра онкологии</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;450;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
 :root{
-  --paper:#EEF1F4;--panel:#FFFFFF;--ink:#16202E;--muted:#5C6875;--faint:#9AA6B2;
-  --line:#DCE2E8;--line-strong:#C4CDD6;--accent:#12615F;--accent-soft:#DCEDEC;
-  --ready:#2E7D5B;--ready-bg:#E4F1EA;--warn:#B9791A;--warn-bg:#F6ECD8;
-  --crit:#B23B3B;--crit-bg:#F6E0DF;--na:#C3CBD4;
-  --shadow:0 1px 2px rgba(22,32,46,.06),0 8px 24px rgba(22,32,46,.06);--radius:4px;
+  --paper:#EFF2F5;--panel:#fff;--ink:#16202E;--muted:#5C6875;--faint:#98A4B0;
+  --line:#DDE3E9;--line2:#C3CCD5;--accent:#12615F;--accent-soft:#DCEDEC;
+  --ok:#2E7D5B;--ok-bg:#E4F1EA;--warn:#B9791A;--warn-bg:#F7EDD9;--crit:#B23B3B;--crit-bg:#F7E1E0;
+  --sh:0 1px 2px rgba(22,32,46,.05),0 6px 20px rgba(22,32,46,.05);--r:5px;
 }
 *{box-sizing:border-box}html,body{margin:0}
-body{background:var(--paper);color:var(--ink);font-family:'Inter',system-ui,sans-serif;font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased;padding:26px 20px 80px}
-.wrap{max-width:1200px;margin:0 auto}
-header{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:18px;border-bottom:2px solid var(--ink);padding-bottom:16px}
-.eyebrow{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:600}
-h1{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:29px;line-height:1.05;margin:6px 0 4px;letter-spacing:-.01em}
-.sub{color:var(--muted);font-size:13px;max-width:56ch}
-.head-line{margin-top:9px;font-size:11.5px;font-family:'IBM Plex Mono',monospace;color:var(--accent);background:var(--accent-soft);display:inline-block;padding:5px 10px;border-radius:3px}
-.legend{display:flex;gap:13px;flex-wrap:wrap;font-size:11.5px;color:var(--muted);font-family:'IBM Plex Mono',monospace}
-.legend span{display:inline-flex;align-items:center;gap:6px}
-.dot{width:10px;height:10px;border-radius:2px;display:inline-block}
-.dot.r{background:var(--ready)}.dot.w{background:var(--warn)}.dot.c{background:var(--crit)}.dot.n{background:var(--na)}
-
-/* roster */
-.roster{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin:18px 0 6px}
-.rc{background:var(--panel);padding:11px 13px;display:flex;gap:10px;align-items:flex-start}
-.av{flex:0 0 28px;width:28px;height:28px;border-radius:50%;color:#fff;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:13px;display:flex;align-items:center;justify-content:center}
-.rc .nm{font-weight:600;font-size:12.5px;font-family:'Space Grotesk',sans-serif}
-.rc .sp{font-size:10.5px;color:var(--muted);line-height:1.35;margin-top:2px}
-.rc .role{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);font-weight:600}
-
-.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin:16px 0 8px;border-radius:var(--radius);overflow:hidden}
-.kpi{background:var(--panel);padding:13px 15px}
-.kpi .n{font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:600;line-height:1}
-.kpi .l{font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-top:6px;font-family:'IBM Plex Mono',monospace}
-.kpi.hot .n{color:var(--crit)}.kpi.mid .n{color:var(--warn)}
-
-/* hero readiness strip */
-.hero{display:flex;flex-wrap:wrap;align-items:center;gap:22px;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px 20px;margin:18px 0 8px}
-.hero-main{display:flex;align-items:center;gap:15px;flex:0 0 auto}
-.hero-num{font-family:'Space Grotesk',sans-serif;font-size:46px;font-weight:700;line-height:.9;color:var(--accent);letter-spacing:-.02em}
-.hero-num .pctsign{font-size:22px;color:var(--faint);font-weight:600}
-.hero-lab{font-size:13px;color:var(--ink);line-height:1.35;font-weight:500}
-.hero-sub{display:block;margin-top:3px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);font-weight:400}
-.hero-bar{display:flex;gap:3px;flex:1;min-width:220px;height:15px}
-.hero-bar .hb{flex:1;border-radius:2px;background:var(--line);position:relative}
-.hero-bar .hb.r{background:var(--ready)}.hero-bar .hb.w{background:var(--warn)}.hero-bar .hb.c{background:var(--crit-bg)}
-.hero-bar .hb.ap{background:var(--accent)}
-
-.toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:18px 0 12px}
-.toolbar .grp{display:flex;gap:2px;background:var(--line);padding:2px;border-radius:var(--radius)}
-.toolbar button{font-family:'IBM Plex Mono',monospace;font-size:11.5px;border:0;background:transparent;color:var(--muted);padding:6px 12px;border-radius:3px;cursor:pointer}
-.toolbar button.on{background:var(--panel);color:var(--ink);box-shadow:var(--shadow);font-weight:600}
-.toolbar .spacer{flex:1}
-.tool-btn{border:1px solid var(--line-strong)!important;background:var(--panel)!important;color:var(--muted)!important}
-.hint{font-size:11px;color:var(--faint);font-family:'IBM Plex Mono',monospace}
-
-.matrix-scroll{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius);background:var(--panel);box-shadow:var(--shadow)}
-table.matrix{border-collapse:collapse;width:100%;min-width:900px}
-table.matrix th,table.matrix td{border:1px solid var(--line);vertical-align:top}
-thead .yeargrp th{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);background:var(--accent-soft);padding:8px 10px;text-align:center;font-weight:600}
-thead .semrow th{background:#F4F7F9;padding:9px 10px;font-size:12px;text-align:center;color:var(--muted);font-weight:600;font-family:'IBM Plex Mono',monospace}
-thead .semrow th small{display:block;font-weight:400;color:var(--faint);font-size:10px}
-.rowhead{width:196px;min-width:180px;background:#FafBfC;padding:12px 13px}
-.rowhead .dname{font-weight:600;font-size:13.5px;font-family:'Space Grotesk',sans-serif}
-.rowhead .dcode{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--faint);margin-top:2px}
-td.cell{padding:0;width:172px}
-.cellpad{padding:10px 10px 9px}
-.na-cell{background:repeating-linear-gradient(135deg,#F6F8F9,#F6F8F9 6px,#F1F4F6 6px,#F1F4F6 12px)}
-.na-cell .dash{color:var(--na);font-size:20px;text-align:center;padding:22px 0;font-weight:300}
-.fos{cursor:pointer;position:relative;transition:background .12s}
-.fos:hover{background:#F7FAFB}.fos:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
-.fos .top{display:flex;justify-content:space-between;align-items:baseline;gap:6px}
-.pct{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:21px;line-height:1}
-.pct.r{color:var(--ready)}.pct.w{color:var(--warn)}.pct.c{color:var(--crit)}
-.statustag{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.05em;text-transform:uppercase;padding:2px 5px;border-radius:2px;font-weight:600;white-space:nowrap}
-.statustag.exists{background:var(--ready-bg);color:var(--ready)}
-.statustag.needs{background:var(--warn-bg);color:var(--warn)}
-.statustag.missing{background:var(--crit-bg);color:var(--crit)}
-.statustag.approved{background:var(--accent);color:#fff}
-.fos.is-approved{background:linear-gradient(0deg,var(--accent-soft),transparent 72%)}
-.bar{display:flex;gap:2px;margin:8px 0 8px;height:5px}
-.bar i{flex:1;background:var(--line);border-radius:1px}
-.bar i.ok{background:var(--ready)}.bar i.part{background:var(--warn)}.bar i.no{background:var(--crit-bg)}
-.chips{display:flex;flex-wrap:wrap;gap:3px;margin-top:2px}
-.chip{display:inline-flex;align-items:center;gap:3px;font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;padding:1px 5px 1px 2px;border-radius:10px;background:#F1F4F6;color:var(--ink)}
-.chip .mini{width:15px;height:15px;border-radius:50%;color:#fff;font-size:9px;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif}
-.cellfoot{display:flex;justify-content:space-between;align-items:center;margin-top:7px;gap:6px}
-.themecount{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--muted)}
-.drivedot{font-size:11px;text-decoration:none}
-.missing-cell .create{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--crit);font-weight:600;margin:5px 0 2px;display:flex;align-items:center;gap:5px}
-
-/* drawer */
-.scrim{position:fixed;inset:0;background:rgba(22,32,46,.34);opacity:0;pointer-events:none;transition:opacity .2s;z-index:40}
-.scrim.open{opacity:1;pointer-events:auto}
-.drawer{position:fixed;top:0;right:0;height:100%;width:min(500px,96vw);background:var(--panel);z-index:50;box-shadow:-8px 0 30px rgba(22,32,46,.18);transform:translateX(100%);transition:transform .24s cubic-bezier(.4,0,.2,1);overflow-y:auto}
-.drawer.open{transform:none}
-.drawer .dhead{padding:20px 22px 16px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--panel);z-index:2}
-.drawer .close{position:absolute;top:16px;right:16px;border:0;background:#F1F4F6;width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:16px;color:var(--muted)}
-.drawer h2{font-family:'Space Grotesk',sans-serif;font-size:19px;margin:0 0 3px;font-weight:600;padding-right:34px}
-.drawer .dmeta{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--faint)}
-.drawer .body{padding:18px 22px 44px}
-.bigpct{display:flex;align-items:baseline;gap:10px;margin-bottom:2px}
-.bigpct .v{font-family:'Space Grotesk',sans-serif;font-size:40px;font-weight:700;line-height:1}
-.bigpct .lab{font-size:12px;color:var(--muted)}
-.sect-t{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);font-weight:600;margin:20px 0 10px;padding-bottom:5px;border-bottom:1px solid var(--line)}
-.comp{display:flex;align-items:center;gap:10px;padding:6px 0;font-size:13px;border-bottom:1px dashed var(--line)}
-.comp .cn{flex:1}.comp .cv{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:12px}
-.pill{font-family:'IBM Plex Mono',monospace;font-size:10px;padding:2px 7px;border-radius:10px;font-weight:600}
-.pill.ok{background:var(--ready-bg);color:var(--ready)}.pill.part{background:var(--warn-bg);color:var(--warn)}.pill.no{background:var(--crit-bg);color:var(--crit)}
-
-/* theme table */
-.thead{display:grid;grid-template-columns:20px 1fr 74px 128px;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--faint);padding:0 0 6px}
-.trow{display:grid;grid-template-columns:20px 1fr 74px 128px;gap:8px;align-items:center;padding:8px 0;border-bottom:1px dashed var(--line)}
-.trow .tn{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--faint);font-weight:600}
-.trow .tt{font-size:12px;line-height:1.3}
-.trow .tq{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--muted)}
-.trow select{font-family:'Inter',sans-serif;font-size:11.5px;padding:5px 6px;border:1px solid var(--line-strong);border-radius:3px;background:var(--panel);color:var(--ink);width:100%}
-.workload{display:flex;flex-wrap:wrap;gap:6px;margin:2px 0 4px}
-.wl{display:inline-flex;align-items:center;gap:5px;font-size:11px;background:#F4F7F9;border-radius:12px;padding:3px 9px 3px 3px}
-.wl .mini{width:16px;height:16px;border-radius:50%;color:#fff;font-size:9px;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:600}
-.wl b{font-family:'IBM Plex Mono',monospace}
-
-.field{margin-top:14px}.field label{font-size:12px;color:var(--muted);display:block;margin-bottom:5px}
-.field input{font-family:'Inter',sans-serif;font-size:12.5px;width:100%;padding:9px 11px;border:1px solid var(--line-strong);border-radius:var(--radius);background:var(--panel);color:var(--ink)}
-.field .open-link{display:inline-block;margin-top:7px;font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--accent);font-weight:600;text-decoration:none}
-.open-fos{display:inline-flex;align-items:center;gap:8px;margin:14px 0 2px;background:var(--accent);color:#fff;font-family:'IBM Plex Mono',monospace;font-size:12.5px;font-weight:600;padding:10px 16px;border-radius:var(--radius);text-decoration:none;transition:filter .12s}
-.open-fos:hover{filter:brightness(1.08)}
-.open-fos.disabled{background:var(--line);color:var(--faint);cursor:default}
-.approval{margin-top:16px;border:1px solid var(--line-strong);border-radius:var(--radius);padding:12px 13px;background:#FaFbFc}
-.approval.ok{border-color:var(--accent);background:var(--accent-soft)}
-.apr-row{display:flex;justify-content:space-between;align-items:center;gap:10px}
-.apr-t{font-weight:600;font-size:13px;font-family:'Space Grotesk',sans-serif}
-.apr-s{font-size:11px;color:var(--muted);font-family:'IBM Plex Mono',monospace;margin-top:2px}
-.apr-btn{border:1px solid var(--accent);background:var(--panel);color:var(--accent);font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;padding:8px 14px;border-radius:var(--radius);cursor:pointer;white-space:nowrap}
-.apr-btn.on{background:var(--accent);color:#fff}
-.apr-warn{margin-top:10px;font-size:11.5px;color:var(--warn);background:var(--warn-bg);padding:8px 10px;border-radius:3px;line-height:1.45}
-.apr-sum{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px}
-.apr-sum b{color:var(--accent)}
-
-/* who am I */
-.whoami{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:14px 0 2px;font-size:12px;color:var(--muted)}
-.whoami select{font-family:'Inter',sans-serif;font-size:12.5px;padding:6px 9px;border:1px solid var(--line-strong);border-radius:var(--radius);background:var(--panel);color:var(--ink)}
-.whoami .mode{font-family:'IBM Plex Mono',monospace;font-size:10.5px;padding:3px 8px;border-radius:10px}
-.whoami .mode.on{background:var(--ready-bg);color:var(--ready)}
-.whoami .mode.off{background:#F1F4F6;color:var(--faint)}
-
-/* per-theme cards in drawer */
-.tcard{border-bottom:1px dashed var(--line);padding:9px 0}
-.tc-top{display:flex;gap:8px;align-items:baseline}
-.tc-top .tn{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--faint);font-weight:600;flex:0 0 16px}
-.tc-top .tt{font-size:12.5px;line-height:1.3;flex:1}
-.tc-top .tq{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--faint);white-space:nowrap}
-.tc-ctl{display:flex;gap:7px;align-items:center;flex-wrap:wrap;margin:7px 0 0 24px}
-.statusseg{display:inline-flex;border:1px solid var(--line-strong);border-radius:var(--radius);overflow:hidden}
-.statusseg button{font-family:'IBM Plex Mono',monospace;font-size:10.5px;border:0;background:var(--panel);color:var(--muted);padding:5px 9px;cursor:pointer;border-right:1px solid var(--line)}
-.statusseg button:last-child{border-right:0}
-.statusseg button.on[data-s="not_started"]{background:#EEF1F4;color:var(--ink)}
-.statusseg button.on[data-s="draft"]{background:var(--warn-bg);color:var(--warn)}
-.statusseg button.on[data-s="ready"]{background:var(--ready-bg);color:var(--ready)}
-.tc-ctl select{font-family:'Inter',sans-serif;font-size:11px;padding:4px 5px;border:1px solid var(--line-strong);border-radius:3px;background:var(--panel);color:var(--ink)}
-.tapr{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-family:'IBM Plex Mono',monospace;cursor:pointer;color:var(--muted)}
-.tapr input{margin:0;accent-color:var(--accent)}
-.tapr.ro{cursor:default}
-.tapr .ok{color:var(--accent);font-weight:600}
-
-/* activity feed */
-.activity{margin-top:28px}
-.activity h3{font-family:'Space Grotesk',sans-serif;font-size:17px;margin:0 0 4px;font-weight:600}
-.activity .dsub{color:var(--muted);font-size:12.5px;margin-bottom:14px}
-.actgrid{display:grid;grid-template-columns:1.3fr 1fr;gap:16px}
-@media (max-width:720px){.actgrid{grid-template-columns:1fr}}
-.feed{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);max-height:340px;overflow-y:auto}
-.feed .ev{display:flex;gap:9px;align-items:baseline;padding:8px 13px;border-bottom:1px dashed var(--line);font-size:12px}
-.feed .ev:last-child{border-bottom:0}
-.feed .et{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--faint);flex:0 0 88px}
-.feed .ea{font-weight:600;font-family:'Space Grotesk',sans-serif}
-.feed .ed{color:var(--muted)}
-.feed .empty{padding:16px 13px;color:var(--faint);font-size:12px}
-.prog{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:6px 0}
-.prog .pr{display:flex;align-items:center;gap:10px;padding:8px 13px;border-bottom:1px dashed var(--line);font-size:12.5px}
-.prog .pr:last-child{border-bottom:0}
-.prog .pr .av{flex:0 0 22px;width:22px;height:22px;font-size:11px}
-.prog .pr .nm{flex:1;font-weight:600;font-family:'Space Grotesk',sans-serif}
-.prog .mb{flex:0 0 120px;height:7px;background:var(--line);border-radius:3px;overflow:hidden;display:flex}
-.prog .mb i{height:100%}.prog .mb i.ready{background:var(--ready)}.prog .mb i.draft{background:var(--warn)}
-.prog .pc{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--muted);flex:0 0 auto;min-width:58px;text-align:right}
-
-/* delegation */
-.deleg{margin-top:28px}
-.deleg h3{font-family:'Space Grotesk',sans-serif;font-size:17px;margin:0 0 4px;font-weight:600}
-.deleg .dsub{color:var(--muted);font-size:12.5px;margin-bottom:14px}
-.people{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
-.person{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:13px 15px;box-shadow:var(--shadow)}
-.person.head{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset,var(--shadow)}
-.person .pn{font-weight:600;font-family:'Space Grotesk',sans-serif;font-size:13.5px;display:flex;justify-content:space-between;align-items:center;gap:8px}
-.person .pn .cnt{font-family:'IBM Plex Mono',monospace;font-size:11px;color:#fff;padding:1px 8px;border-radius:10px}
-.person .role{display:block;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-top:3px}
-.person ul{list-style:none;padding:0;margin:9px 0 0;font-size:12px}
-.person li{padding:4px 0;color:var(--muted);display:flex;justify-content:space-between;gap:8px;border-top:1px dashed var(--line)}
-.person li .lp{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--faint)}
-.person.empty ul li{color:var(--faint)}
-
-footer{margin-top:32px;padding-top:16px;border-top:1px solid var(--line);font-size:11px;color:var(--faint);font-family:'IBM Plex Mono',monospace;line-height:1.7}
-@media (max-width:640px){body{padding:16px 11px 70px}h1{font-size:22px}.kpis{grid-template-columns:repeat(2,1fr)}
-  .thead,.trow{grid-template-columns:18px 1fr 96px}.thead .h-own,.trow select{grid-column:1/-1}}
-@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+body{background:var(--paper);color:var(--ink);font:400 14px/1.5 'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;padding:26px 20px 70px}
+.wrap{max-width:1150px;margin:0 auto}
+a{color:var(--accent)}
+header{border-bottom:2px solid var(--ink);padding-bottom:14px;margin-bottom:18px}
+.eyebrow{font:600 11px/1 'IBM Plex Mono',monospace;letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
+h1{font:600 27px/1.1 'Space Grotesk',sans-serif;margin:7px 0 6px;letter-spacing:-.01em}
+.lede{color:var(--muted);font-size:13.5px;max-width:70ch}
+.howto{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;margin-bottom:16px;box-shadow:var(--sh)}
+.howto h2{font:600 12px/1 'IBM Plex Mono',monospace;letter-spacing:.09em;text-transform:uppercase;color:var(--accent);margin:0 0 9px}
+.howto ol{margin:0;padding-left:19px;font-size:13px;color:var(--muted)}
+.howto li{margin:3px 0}
+.howto b{color:var(--ink)}
+.secttl{font:600 11px/1 'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:0 0 8px;display:flex;justify-content:space-between;align-items:center}
+.secttl .clear{cursor:pointer;color:var(--accent);font-weight:600;text-transform:none;letter-spacing:0}
+.docs{display:grid;grid-template-columns:repeat(auto-fit,minmax(178px,1fr));gap:8px;margin-bottom:22px}
+.doc{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:10px 12px;cursor:pointer;box-shadow:var(--sh);transition:.12s;text-align:left;font-family:inherit}
+.doc:hover{border-color:var(--line2)}
+.doc.on{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset,var(--sh)}
+.doc.dim{opacity:.42}
+.doc .r1{display:flex;align-items:center;gap:8px}
+.av{width:26px;height:26px;border-radius:50%;color:#fff;font:600 12px/1 'Space Grotesk',sans-serif;display:flex;align-items:center;justify-content:center;flex:0 0 26px}
+.doc .nm{font:600 12.5px/1.2 'Space Grotesk',sans-serif}
+.doc .role{display:block;font:600 9px/1.3 'IBM Plex Mono',monospace;letter-spacing:.05em;text-transform:uppercase;color:var(--accent)}
+.doc .sp{font-size:10.5px;color:var(--faint);line-height:1.35;margin-top:6px;min-height:28px}
+.bar{height:5px;background:var(--line);border-radius:3px;margin-top:8px;overflow:hidden}
+.bar i{display:block;height:100%;border-radius:3px}
+.doc .num{font:600 10.5px/1 'IBM Plex Mono',monospace;color:var(--muted);margin-top:5px;display:flex;justify-content:space-between}
+.mwrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r);background:var(--panel);box-shadow:var(--sh)}
+table{border-collapse:collapse;width:100%;min-width:850px}
+th,td{border:1px solid var(--line);vertical-align:top}
+thead .y th{font:600 10.5px/1 'IBM Plex Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);background:var(--accent-soft);padding:7px;text-align:center}
+thead .s th{background:#F5F8FA;padding:8px;font:600 12px/1.3 'IBM Plex Mono',monospace;color:var(--muted);text-align:center}
+thead .s small{display:block;font-weight:400;color:var(--faint);font-size:9.5px}
+.rh{width:180px;background:#FAFBFC;padding:11px 12px}
+.rh .d{font:600 13.5px/1.2 'Space Grotesk',sans-serif}
+.rh .c{font:400 10px/1 'IBM Plex Mono',monospace;color:var(--faint);margin-top:3px}
+td.c{padding:0;width:165px}
+.na{background:repeating-linear-gradient(135deg,#F7F9FA,#F7F9FA 6px,#F2F5F7 6px,#F2F5F7 12px)}
+.na div{color:#CBD3DA;text-align:center;padding:20px 0;font-size:18px}
+.cell{padding:10px;cursor:pointer;transition:background .12s}
+.cell:hover{background:#F7FAFB}
+.cell:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.cell.dim{opacity:.3}
+.tag{display:inline-block;font:600 9px/1 'IBM Plex Mono',monospace;letter-spacing:.05em;text-transform:uppercase;padding:3px 6px;border-radius:3px}
+.tag.ex{background:var(--ok-bg);color:var(--ok)}
+.tag.ms{background:var(--crit-bg);color:var(--crit)}
+.tag.ap{background:var(--accent);color:#fff}
+.cnt{font:600 11px/1.3 'IBM Plex Mono',monospace;color:var(--muted);margin-top:8px}
+.chips{display:flex;flex-wrap:wrap;gap:3px;margin-top:7px}
+.chip{width:19px;height:19px;border-radius:50%;color:#fff;font:600 9.5px/1 'Space Grotesk',sans-serif;display:flex;align-items:center;justify-content:center}
+.chip.mut{background:var(--line2)!important}
+.mine{margin-top:7px;font:600 10.5px/1.3 'IBM Plex Mono',monospace;color:var(--accent);background:var(--accent-soft);padding:4px 6px;border-radius:3px}
+.scrim{position:fixed;inset:0;background:rgba(22,32,46,.35);opacity:0;pointer-events:none;transition:.2s;z-index:40}
+.scrim.on{opacity:1;pointer-events:auto}
+.dw{position:fixed;top:0;right:0;height:100%;width:min(560px,97vw);background:var(--panel);z-index:50;box-shadow:-8px 0 30px rgba(22,32,46,.2);transform:translateX(100%);transition:transform .24s cubic-bezier(.4,0,.2,1);overflow-y:auto}
+.dw.on{transform:none}
+.dh{padding:18px 22px 14px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--panel);z-index:2}
+.dh h2{font:600 19px/1.2 'Space Grotesk',sans-serif;margin:0 0 3px;padding-right:36px}
+.dh .m{font:400 11px/1.4 'IBM Plex Mono',monospace;color:var(--faint)}
+.x{position:absolute;top:16px;right:16px;width:29px;height:29px;border:0;border-radius:50%;background:#F1F4F6;color:var(--muted);font-size:15px;cursor:pointer}
+.db{padding:16px 22px 44px}
+.stat{display:flex;gap:8px;margin-bottom:14px}
+.st{flex:1;background:#F7F9FB;border:1px solid var(--line);border-radius:var(--r);padding:8px 10px;text-align:center}
+.st b{display:block;font:700 17px/1 'Space Grotesk',sans-serif}
+.st span{font:400 9.5px/1 'IBM Plex Mono',monospace;color:var(--faint);text-transform:uppercase;letter-spacing:.05em}
+.st.bad b{color:var(--crit)}
+.drv{display:block;text-align:center;padding:9px;border:1px solid var(--accent);border-radius:var(--r);color:var(--accent);font:600 12.5px/1 'IBM Plex Mono',monospace;text-decoration:none;margin-bottom:14px}
+.drv:hover{background:var(--accent-soft)}
+.drv.off{border-color:var(--line2);color:var(--faint);cursor:default}
+.h3{font:600 11px/1 'IBM Plex Mono',monospace;letter-spacing:.09em;text-transform:uppercase;color:var(--accent);margin:16px 0 9px;padding-bottom:5px;border-bottom:1px solid var(--line)}
+.th{border:1px solid var(--line);border-radius:var(--r);margin-bottom:7px;overflow:hidden}
+.th.dimmed{opacity:.34}
+.th.cross{border-style:dashed;background:#FCFBF7}
+.th .top{display:flex;gap:9px;align-items:flex-start;padding:10px 11px}
+.th .nm{flex:1;font-size:13px;font-weight:500;line-height:1.35}
+.flag{display:inline-block;font:600 8.5px/1 'IBM Plex Mono',monospace;background:var(--warn-bg);color:var(--warn);padding:2px 4px;border-radius:2px;margin-left:5px;vertical-align:middle;letter-spacing:.04em}
+.th select{font:500 11.5px/1 'Inter',sans-serif;padding:5px 6px;border:1px solid var(--line2);border-radius:3px;background:var(--panel);color:var(--ink);max-width:135px}
+.nums{display:flex;flex-wrap:wrap;gap:6px;padding:0 11px 10px}
+.n{font:500 10.5px/1.4 'IBM Plex Mono',monospace;background:#F2F5F7;border-radius:3px;padding:4px 7px;color:var(--muted)}
+.n b{color:var(--ink);font-weight:600}
+.n.e{color:var(--faint)}
+.warnbox{background:var(--warn-bg);border-left:3px solid var(--warn);padding:9px 11px;border-radius:0 3px 3px 0;font-size:12px;color:#7A5210;margin-bottom:12px;line-height:1.45}
+.appr{margin-top:16px;border:1px solid var(--line2);border-radius:var(--r);padding:12px;background:#FAFBFC;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.appr.on{border-color:var(--accent);background:var(--accent-soft)}
+.appr .t{font:600 13px/1.2 'Space Grotesk',sans-serif}
+.appr .s{font:400 10.5px/1.3 'IBM Plex Mono',monospace;color:var(--muted);margin-top:2px}
+.appr button{border:1px solid var(--accent);background:var(--panel);color:var(--accent);font:600 12px/1 'IBM Plex Mono',monospace;padding:8px 13px;border-radius:var(--r);cursor:pointer;white-space:nowrap}
+.appr button.on{background:var(--accent);color:#fff}
+footer{margin-top:26px;padding-top:14px;border-top:1px solid var(--line);font:400 11px/1.7 'IBM Plex Mono',monospace;color:var(--faint)}
+@media(max-width:640px){body{padding:16px 11px 60px}h1{font-size:21px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header>
-    <div>
-      <div class="eyebrow">Кафедра онкологии · ММКЦ «Коммунарка» · 31.08.57</div>
-      <h1>Матрица ФОС · распределение по темам</h1>
-      <div class="sub">Каждый ФОС разбит на темы, темы распределены между преподавателями по клинической специализации. Клик по ячейке — темы, объём работы и ответственные.</div>
-      <div class="head-line">Руководитель направления: <b>Петухов Е.А.</b> — приёмка и подпись всех ФОС</div>
-    </div>
-    <div class="legend">
-      <span><i class="dot r"></i> готов / принят</span>
-      <span><i class="dot w"></i> доводка</span>
-      <span><i class="dot c"></i> отсутствует</span>
-      <span><i class="dot n"></i> нет в семестре</span>
-    </div>
+    <div class="eyebrow">Кафедра онкологии · ММКЦ «Коммунарка» · 31.08.57</div>
+    <h1>Фонды оценочных средств</h1>
+    <div class="lede">Кто над чем работает внутри каждого ФОС. Темы разобраны по фактическим номерам заданий в файлах — врач видит не только свою тему, но и конкретные номера тестов, вопросов и задач.</div>
   </header>
 
-  <div class="roster" id="roster"></div>
-  <div class="hero" id="hero"></div>
-  <div class="kpis" id="kpis"></div>
-
-  <div class="whoami" id="whoami"></div>
-
-  <div class="toolbar">
-    <div class="grp" id="filters">
-      <button data-f="all" class="on">Все ФОС</button>
-      <button data-f="exists">С файлом</button>
-      <button data-f="missing">Создать</button>
-    </div>
-    <div class="spacer"></div>
-    <button class="tool-btn" id="exp">↧ Экспорт назначений</button>
-    <button class="tool-btn" id="imp">↥ Импорт</button>
-    <input type="file" id="impfile" accept="application/json" style="display:none">
+  <div class="howto">
+    <h2>Как пользоваться</h2>
+    <ol>
+      <li><b>Нажмите на врача</b> — в матрице подсветятся только его ФОС и объём его заданий.</li>
+      <li><b>Нажмите на ячейку ФОС</b> — откроются темы с точными номерами заданий и ссылка на документ в Google Drive.</li>
+      <li><b>Работайте в Google-документе</b>: правьте только те номера, что закреплены за вами.</li>
+      <li>Готовый ФОС принимает <b>руководитель направления</b> — Петухов Е.А.</li>
+    </ol>
   </div>
-  <div class="hint" style="margin:-6px 0 12px">Общие данные берутся из <b>fos-data.json</b> в репозитории. Изменили распределение → «Экспорт» → замените fos-data.json в репозитории (или поручите Devin) → сайт обновится. · <a href="https://drive.google.com/drive/folders/1NMOVu7uhu1TAbN3jm3YKBlswrtEaaG-A" target="_blank" style="color:var(--accent)">папка ФОС в Google Drive →</a></div>
 
-  <div class="matrix-scroll">
-    <table class="matrix">
+  <div class="secttl"><span>Преподаватели · нажмите, чтобы отфильтровать</span><span class="clear" id="clr" hidden>сбросить фильтр ✕</span></div>
+  <div class="docs" id="docs"></div>
+
+  <div class="secttl"><span>Матрица ФОС по семестрам</span></div>
+  <div class="mwrap">
+    <table>
       <thead>
-        <tr class="yeargrp">
-          <th class="rowhead" rowspan="2" style="text-align:left;vertical-align:bottom">Дисциплина</th>
-          <th colspan="2">1 год</th><th colspan="2">2 год</th>
-        </tr>
-        <tr class="semrow">
-          <th>1 семестр<small>сен–янв</small></th><th>2 семестр<small>фев–июл</small></th>
-          <th>3 семестр<small>сен–янв</small></th><th>4 семестр<small>фев–июл</small></th>
-        </tr>
+        <tr class="y"><th class="rh" rowspan="2" style="text-align:left;vertical-align:bottom">Дисциплина</th>
+          <th colspan="2">1 год</th><th colspan="2">2 год</th></tr>
+        <tr class="s"><th>1 семестр<small>сен–янв</small></th><th>2 семестр<small>фев–июл</small></th>
+          <th>3 семестр<small>сен–янв</small></th><th>4 семестр<small>фев–июл</small></th></tr>
       </thead>
-      <tbody id="mbody"></tbody>
+      <tbody id="tb"></tbody>
     </table>
   </div>
 
-  <div class="activity">
-    <h3>Активность и продуктивность</h3>
-    <div class="dsub" id="actsub">Живая лента изменений и прогресс по преподавателям. Обновляется в реальном времени.</div>
-    <div class="actgrid">
-      <div class="feed" id="feed"></div>
-      <div class="prog" id="prog"></div>
-    </div>
-  </div>
-
-  <div class="deleg">
-    <h3>Нагрузка по преподавателям</h3>
-    <div class="dsub">Сколько тем ФОС закреплено за каждым. Пересобирается при переназначении. Предзаполнено по специализации — меняйте под договорённость кафедры.</div>
-    <div class="people" id="people"></div>
-  </div>
-
-  <footer id="foot"></footer>
+  <footer id="ft"></footer>
 </div>
 
-<div class="scrim" id="scrim"></div>
-<aside class="drawer" id="drawer" aria-hidden="true">
-  <div class="dhead">
-    <button class="close" id="dclose" aria-label="Закрыть">✕</button>
-    <h2 id="dtitle"></h2><div class="dmeta" id="dmeta"></div>
-  </div>
-  <div class="body" id="dbody"></div>
+<div class="scrim" id="sc"></div>
+<aside class="dw" id="dw" aria-hidden="true">
+  <div class="dh"><button class="x" id="xb" aria-label="Закрыть">✕</button>
+    <h2 id="dt"></h2><div class="m" id="dm"></div></div>
+  <div class="db" id="db"></div>
 </aside>
 
 <script>
-/* ===== teachers & competencies (из файла «Преподавательский состав») ===== */
-const TEACHERS = {
-  "Ронзин":   {full:"Ронзин А.В.",   color:"#B24A6A", sp:"Онкохирургия · РМЖ/маммология · кожа-меланома · ЖКТ"},
-  "Петухов":  {full:"Петухов Е.А.",  color:"#12615F", sp:"Лучевая терапия · радиотерапия", role:"руководитель направления"},
-  "Евдокимов":{full:"Евдокимов В.И.", color:"#2F6DB0", sp:"Клиника · рак лёгкого · организация · клин. исследования · коммуникация"},
-  "Кобзев":   {full:"Кобзев Д.С.",   color:"#7A5AA6", sp:"Онкоурология · урологическая онкохирургия"},
-  "Глазкова": {full:"Глазкова Е.В.", color:"#C77A18", sp:"Химиотерапия · системная лекарственная терапия"},
-};
-const ORDER=["Ронзин","Петухов","Евдокимов","Кобзев","Глазкова"];
-const HEAD="Петухов";
-const ini=k=>k[0];
-
-/* ===== ФОС data. themes: [name, ownerKey]. Источник тем: ТП.xlsx ===== */
-function F(status,file,tests,theor,tasks,format,themes){
-  // стартовый статус темы: у существующих ФОС содержание есть → "ready" (ждёт приёмки),
-  // у "создать с нуля" → "not_started". Дальше двигают преподаватели, состояние живое.
-  const seed=status==="exists"?"ready":"not_started";
-  return {status,file,tests,theor,tasks,format,keys:status==="exists"?1:0,
-          themes:themes.map(([name,own])=>({name,own,status:seed,approved:false,approved_by:""})),drive:""};
-}
-const TARGET={tests:80,theor:30,tasks:15};
-const DISCIPLINES=[
- {id:"onk",name:"Онкология",code:"Б1.Б.1",cells:{
-   1:F("exists","ОМ_Б1_Б_1_Онкология_1_семестр.docx",80,34,15,.60,[
-     ["Организация онкопомощи (ЦАОП, маршрутизация)","Евдокимов"],
-     ["Общие основы диагностики (скрининг, ПЭТ/МРТ/КТ, морфология)","Евдокимов"],
-     ["Опухоли ЦНС, головы/шеи, дерматоонкология, меланома","Ронзин"],
-     ["Рак желудка и пищевода","Ронзин"],
-     ["Колоректальный рак ранних стадий","Ронзин"],
-     ["Поддерживающая терапия, реабилитация, паллиатив","Евдокимов"],
-     ["Онкоургентные состояния и интенсивная терапия","Евдокимов"]]),
-   2:F("exists","ОМ_Б1_Б_1_Онкология_2_семестр.docx",77,32,15,.50,[
-     ["Маммология (рак молочной железы)","Ронзин"],
-     ["Онкогинекология","Глазкова"],
-     ["Онкоурология","Кобзев"],
-     ["Онкогематология (лейкозы, лимфомы, миелома)","Глазкова"],
-     ["Колоректальный рак метастатический (системная, таргет, ИТ)","Глазкова"],
-     ["Онкокомитеты (мультидисциплинарные консилиумы)","Евдокимов"]]),
-   3:F("exists","ОМ_Б1_Б_1_Онкология_3_семестр.docx",77,30,15,.50,[
-     ["Торакальная онкология (лёгкое, плевра, средостение)","Евдокимов"],
-     ["Рецидивы, метастазы, осложнения химио-/лучевой терапии","Петухов"],
-     ["Клинические разборы сложных случаев","Евдокимов"],
-     ["Протокольные исследования и регистрационные базы","Евдокимов"],
-     ["Психоонкология, коммуникация, этика","Евдокимов"]]),
-   4:F("exists","ОМ_Б1_Б_1_Онкология_4_семестр.docx",77,31,15,.50,[
-     ["Конференции, мастер-классы, клинические доклады","Петухов"],
-     ["Клинические рекомендации, экспертные советы","Евдокимов"]]),
- }},
- {id:"him",name:"Химиотерапия",code:"Б1.Б.8",cells:{
-   1:F("missing",null,0,0,0,0,[
-     ["Основы системной лекарственной терапии","Глазкова"],
-     ["Критическое чтение статей, оценка опций терапии","Евдокимов"],
-     ["Побочные эффекты химиотерапии и профилактика","Глазкова"],
-     ["Организация проведения химиотерапии","Глазкова"],
-     ["Контроль эффективности и безопасность","Глазкова"]]),
- }},
- {id:"hir",name:"Хирургия",code:"Б1.Б.9",cells:{
-   2:F("missing",null,0,0,0,0,[
-     ["Принципы онкохирургии (радикальность, лимфодиссекция)","Ронзин"],
-     ["Хирургия опухолей ЖКТ","Ронзин"],
-     ["Торакальная онкохирургия","Ронзин"],
-     ["Хирургия урогенитальных опухолей","Кобзев"],
-     ["Паллиативные хирургические вмешательства","Ронзин"],
-     ["Современные технологии (лапароскопия, робот, навигация)","Ронзин"]]),
- }},
- {id:"lt",name:"Лучевая терапия",code:"Б1.В.6",cells:{
-   2:F("missing",null,0,0,0,0,[
-     ["Основы радиобиологии и физики лучевой терапии","Петухов"],
-     ["Планирование и проведение лучевой терапии","Петухов"],
-     ["Современные методы (дистанционная, брахитерапия)","Петухов"],
-     ["Лучевая терапия при разных локализациях","Петухов"],
-     ["Осложнения лучевой терапии и профилактика","Петухов"]]),
- }},
- {id:"mam",name:"Онкомаммология",code:"Б1.В.ДВ.1.1",cells:{
-   2:F("exists","ОМ_Б1_В_ДВ_1_1_Онкомаммология.docx",77,29,15,.45,[
-     ["Эпидемиология и скрининг РМЖ","Ронзин"],
-     ["Современные методы диагностики","Ронзин"],
-     ["Морфология и молекулярная характеристика","Глазкова"],
-     ["Хирургическое лечение РМЖ","Ронзин"],
-     ["Системная лекарственная терапия РМЖ","Глазкова"],
-     ["Лучевая терапия при РМЖ","Петухов"],
-     ["Метастатический РМЖ и реабилитация","Глазкова"]]),
- }},
-];
-
-/* ===== helpers ===== */
 const $=s=>document.querySelector(s);
-function quota(total,k,i){const b=Math.floor(total/k),r=total%k;return b+(i<r?1:0);}
-// Готовность = прогресс по темам (живой): готово=1, черновик=0.5, не начато=0.
-function readiness(c){
-  const N=c.themes.length;if(!N)return 0;
-  let s=0;c.themes.forEach(t=>{s+=(t.approved||t.status==="ready")?1:(t.status==="draft"?0.5:0);});
-  return Math.round(100*s/N);
+let D=null, FILTER=null;
+const DISC=[["Онкология","Б1.Б.1",{1:"onk1",2:"onk2",3:"onk3",4:"onk4"}],
+            ["Химиотерапия","Б1.Б.8",{1:"him1"}],
+            ["Хирургия","Б1.Б.9",{2:"hir2"}],
+            ["Лучевая терапия","Б1.В.6",{2:"lt2"}],
+            ["Онкомаммология","Б1.В.ДВ.1.1",{2:"mam2"}]];
+const KEY="fos-state-v4";
+
+function snap(){const s={};for(const k in D.fos){const f=D.fos[k];
+  s[k]={owners:f.themes.map(t=>t.owner),approved:f.approved,drive:f.drive};}return s;}
+function applySnap(s){for(const k in s){const f=D.fos[k];if(!f)continue;const v=s[k];
+  if(v.owners)v.owners.forEach((o,i)=>{if(f.themes[i])f.themes[i].owner=o;});
+  if(v.approved!==undefined)f.approved=v.approved;
+  if(v.drive)f.drive=v.drive;}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(snap()));}catch(e){}}
+function loadLocal(){try{const v=localStorage.getItem(KEY);if(v)applySnap(JSON.parse(v));}catch(e){}}
+
+async function boot(){
+  try{const r=await fetch('fos-data.json',{cache:'no-store'});D=await r.json();}
+  catch(e){$("#tb").innerHTML='<tr><td style="padding:20px;color:#B23B3B">Не найден fos-data.json — он должен лежать рядом с index.html</td></tr>';return;}
+  loadLocal(); renderDocs(); renderMatrix(); renderFoot();
 }
-function isAppr(c){return c.themes.length>0&&c.themes.every(t=>t.approved);}
-function apprCount(c){return c.themes.filter(t=>t.approved).length;}
-function band(p){return p>=88?"r":p>0?"w":"c";}
-function eachCell(fn){DISCIPLINES.forEach(d=>Object.entries(d.cells).forEach(([s,c])=>fn(d,+s,c)));}
-function keyOf(id,sem,i){return id+":"+sem+"#"+i;}
+const loadOf=k=>{let n=0;for(const f of Object.values(D.fos))for(const t of f.themes)if(t.owner===k)n+=t.load;return n;};
+const themesOf=k=>{let n=0;for(const f of Object.values(D.fos))for(const t of f.themes)if(t.owner===k)n++;return n;};
 
-/* ===== структура (owners/drive) из fos-data.json + экспорт ===== */
-const KEY="fos-matrix-v2";
-function snapshot(){const s={};eachCell((d,sem,c)=>{s[d.id+":"+sem]={owners:c.themes.map(t=>t.own),approved:isAppr(c),drive:c.drive};});return s;}
-function applySnapshot(s){eachCell((d,sem,c)=>{const v=s[d.id+":"+sem];if(v){if(v.owners)v.owners.forEach((o,i)=>{if(c.themes[i])c.themes[i].own=o;});if(v.drive!==undefined)c.drive=v.drive;}});}
-async function saveState(){const s=JSON.stringify(snapshot());try{if(window.storage){await window.storage.set(KEY,s,false);return;}}catch(e){}try{localStorage.setItem(KEY,s);}catch(e){}}
-
-/* ===== ЖИВОЕ состояние: бэкенд Apps Script (или локальный резерв) ===== */
-const WEBAPP_URL="";   // ← ВСТАВЬТЕ URL веб-приложения Apps Script (…/exec) после Deploy — включает онлайн-режим
-const LIVEKEY="fos-live-v1";
-let ME=localStorage.getItem("fos-me")||"";
-let LOG=[];
-const LIVE=()=>!!WEBAPP_URL;
-function actor(){return ME||"аноним";}
-function allRows(){const rows=[];eachCell((d,sem,c)=>c.themes.forEach((t,i)=>rows.push(
-  {key:keyOf(d.id,sem,i),fos:d.id+":"+sem,idx:i,theme:t.name,owner:t.own,status:t.status,approved:t.approved})));return rows;}
-function applyRows(rows){if(!rows)return;eachCell((d,sem,c)=>c.themes.forEach((t,i)=>{const v=rows[keyOf(d.id,sem,i)];
-  if(v){if(v.status)t.status=v.status;t.approved=!!v.approved;t.approved_by=v.approved_by||"";if(v.owner)t.own=v.owner;}}));}
-function liveSnapshot(){const s={};eachCell((d,sem,c)=>c.themes.forEach((t,i)=>{s[keyOf(d.id,sem,i)]=
-  {status:t.status,approved:t.approved,approved_by:t.approved_by||"",owner:t.own};}));return s;}
-function saveLiveLocal(){try{localStorage.setItem(LIVEKEY,JSON.stringify(liveSnapshot()));}catch(e){}}
-async function apiGet(){try{const r=await fetch(WEBAPP_URL,{cache:"no-store"});return await r.json();}catch(e){return null;}}
-async function apiPost(body){try{const r=await fetch(WEBAPP_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(body)});return await r.json();}catch(e){return null;}}
-async function refreshLive(){if(!LIVE())return;const st=await apiGet();if(st&&st.ok){applyRows(st.rows);LOG=st.log||[];renderAll();}}
-async function setTheme(d,sem,i,field,value){
-  const c=d.cells[sem],t=c.themes[i];
-  if(field==="status")t.status=value;
-  else if(field==="approved"){t.approved=value;t.approved_by=value?actor():"";}
-  else if(field==="owner")t.own=value;
-  if(field==="owner")saveState();
-  renderMatrix();renderKpis();renderPeople();if(CUR)openDrawer(CUR.d,CUR.sem);
-  if(LIVE()){await apiPost({action:"set",key:keyOf(d.id,sem,i),field,value,actor:actor()});refreshLive();}
-  else{pushLocalLog(field,keyOf(d.id,sem,i),value);saveLiveLocal();renderActivity();}
-}
-function pushLocalLog(action,key,value){LOG.unshift({ts:new Date().toISOString(),actor:actor(),key,action,value:String(value)});LOG=LOG.slice(0,80);}
-
-async function loadState(){
-  // 1) структура (owners/drive) из репозитория
-  try{const res=await fetch('fos-data.json',{cache:'no-store'});if(res.ok){const j=await res.json();delete j._meta;applySnapshot(j);}}catch(e){}
-  // 2) живое состояние
-  if(LIVE()){
-    let st=await apiGet();
-    const empty=!st||!st.rows||Object.keys(st.rows).length===0;
-    if(empty){await apiPost({action:"seed",rows:allRows()});st=await apiGet();}
-    if(st&&st.ok){applyRows(st.rows);LOG=st.log||[];}
-  }else{
-    try{const v=localStorage.getItem(LIVEKEY);if(v)applyRows(JSON.parse(v));}catch(e){}
-  }
+function renderDocs(){
+  const keys=Object.keys(D.teachers);
+  const max=Math.max(...keys.map(loadOf),1);
+  $("#docs").innerHTML=keys.map(k=>{const t=D.teachers[k],L=loadOf(k),TH=themesOf(k);
+    const cls=FILTER?(FILTER===k?"on":"dim"):"";
+    return `<button class="doc ${cls}" data-k="${k}">
+      <div class="r1"><span class="av" style="background:${t.color}">${k[0]}</span>
+        <span><span class="nm">${t.full}</span>${t.head?'<span class="role">руководитель · приёмка</span>':''}</span></div>
+      <div class="sp">${t.sp}</div>
+      <div class="bar"><i style="width:${Math.round(L/max*100)}%;background:${t.color}"></i></div>
+      <div class="num"><span>${TH} тем</span><span>${L} заданий</span></div></button>`;}).join("");
+  $("#docs").querySelectorAll(".doc").forEach(b=>b.onclick=()=>{
+    FILTER=(FILTER===b.dataset.k)?null:b.dataset.k;
+    $("#clr").hidden=!FILTER; renderDocs(); renderMatrix();});
 }
 
-/* ===== render ===== */
-let FILTER="all";
-function passFilter(c){return FILTER==="all"||(FILTER==="exists"&&c.status==="exists")||(FILTER==="missing"&&c.status==="missing");}
-
-function renderRoster(){
-  $("#roster").innerHTML=ORDER.map(k=>{const t=TEACHERS[k];
-    return `<div class="rc"><div class="av" style="background:${t.color}">${ini(k)}</div>
-      <div><div class="nm">${t.full}</div>${t.role?`<div class="role">${t.role}</div>`:''}
-      <div class="sp">${t.sp}</div></div></div>`;}).join("");
-}
-function ownerChips(c){
-  const cnt={};c.themes.forEach(t=>{cnt[t.own]=(cnt[t.own]||0)+1;});
-  return `<div class="chips">${ORDER.filter(k=>cnt[k]).map(k=>{const t=TEACHERS[k];
-    return `<span class="chip"><span class="mini" style="background:${t.color}">${ini(k)}</span>${cnt[k]}</span>`;}).join("")}</div>`;
-}
-// полоса прогресса по темам: готово/принято=зелёный, черновик=жёлтый, не начато=серый
-function themeBar(c){return `<div class="bar">${c.themes.map(t=>{
-  const cl=(t.approved||t.status==="ready")?"ok":(t.status==="draft"?"part":"");
-  return `<i class="${cl}"></i>`;}).join("")}</div>`;}
 function renderMatrix(){
-  const tb=$("#mbody");tb.innerHTML="";
-  DISCIPLINES.forEach(d=>{
+  const tb=$("#tb"); tb.innerHTML="";
+  for(const [name,code,sems] of DISC){
     const tr=document.createElement("tr");
-    tr.innerHTML=`<td class="rowhead"><div class="dname">${d.name}</div><div class="dcode">${d.code}</div></td>`;
-    for(let sem=1;sem<=4;sem++){
-      const c=d.cells[sem];const td=document.createElement("td");td.className="cell";
-      if(!c){td.classList.add("na-cell");td.innerHTML=`<div class="dash">—</div>`;}
-      else{
-        td.style.opacity=passFilter(c)?1:.28;
-        const drive=c.drive?`<a class="drivedot" href="${c.drive}" target="_blank" title="Открыть в Google Drive" onclick="event.stopPropagation()">🗎</a>`:"";
-        const p=readiness(c),b=band(p),appr=isAppr(c);
-        const tag=appr?`<span class="statustag approved">✓ принято</span>`
-          :(c.status==="missing"&&p===0?`<span class="statustag missing">нет ФОС</span>`
-            :`<span class="statustag ${p>=100?'exists':'needs'}">${p>=100?'на приёмку':'в работе'}</span>`);
-        const create=c.status==="missing"&&p===0?`<div class="create">＋ Создать ФОС</div>`:"";
-        td.innerHTML=`<div class="cellpad fos ${appr?'is-approved':''}" tabindex="0">
-          <div class="top"><span class="pct ${b}">${p}%</span>${tag}</div>
-          ${themeBar(c)}${create}${ownerChips(c)}
-          <div class="cellfoot"><span class="themecount">${apprCount(c)}/${c.themes.length} принято</span>${drive}</div></div>`;
-        const tr2=td.querySelector(".fos");
-        tr2.addEventListener("click",()=>openDrawer(d,sem));
-        tr2.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();openDrawer(d,sem);}});
-      }
+    tr.innerHTML=`<td class="rh"><div class="d">${name}</div><div class="c">${code}</div></td>`;
+    for(let s=1;s<=4;s++){
+      const key=sems[s], td=document.createElement("td");
+      if(!key){td.className="c na";td.innerHTML="<div>—</div>";tr.appendChild(td);continue;}
+      td.className="c";
+      const f=D.fos[key];
+      const mineLoad=FILTER?f.themes.filter(t=>t.owner===FILTER).reduce((a,t)=>a+t.load,0):0;
+      const dim=FILTER&&mineLoad===0;
+      const owners=[...new Set(f.themes.map(t=>t.owner))];
+      const tag=f.status==="missing"?`<span class="tag ms">нет ФОС</span>`
+               :f.approved?`<span class="tag ap">✓ принят</span>`:`<span class="tag ex">есть файл</span>`;
+      const cnt=f.status==="missing"?`создать: 80 тестов · 30 вопросов · 15 задач`
+               :`${f.totals.tests} тестов · ${f.totals.theory} вопросов · ${f.totals.tasks} задач`;
+      td.innerHTML=`<div class="cell ${dim?'dim':''}" tabindex="0">
+        ${tag}<div class="cnt">${cnt}</div>
+        <div class="chips">${owners.map(o=>{const t=D.teachers[o];const mut=FILTER&&o!==FILTER;
+          return `<span class="chip ${mut?'mut':''}" style="background:${t?t.color:'#98A4B0'}" title="${t?t.full:o}">${o[0]}</span>`;}).join("")}</div>
+        ${FILTER&&mineLoad?`<div class="mine">ваших заданий: ${mineLoad}</div>`:''}</div>`;
+      const c=td.querySelector(".cell");
+      c.onclick=()=>openFos(key);
+      c.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();openFos(key);}};
       tr.appendChild(td);
     }
     tb.appendChild(tr);
-  });
-}
-function renderKpis(){
-  let req=0,pres=0,miss=0,sumAll=0,apprFos=0,themes=0,ready=0;
-  const segs=[];
-  eachCell((d,s,c)=>{
-    req++;const p=readiness(c);sumAll+=p;themes+=c.themes.length;
-    ready+=c.themes.filter(t=>t.status==="ready"||t.approved).length;
-    if(c.status==="exists")pres++;else miss++;
-    if(isAppr(c))apprFos++;
-    segs.push({p,band:band(p),approved:isAppr(c)});
-  });
-  const overall=Math.round(sumAll/req);
-  $("#hero").innerHTML=`
-    <div class="hero-main">
-      <div class="hero-num">${overall}<span class="pctsign">%</span></div>
-      <div class="hero-lab">готовность кафедры по темам
-        <span class="hero-sub">${pres} с файлом · ${miss} создать · тем готово ${ready}/${themes} · принято ФОС ${apprFos}/${req}</span></div>
-    </div>
-    <div class="hero-bar" title="каждый сегмент — один ФОС">${segs.map(s=>`<i class="hb ${s.approved?'ap':s.band}" title="${s.p}%${s.approved?' · принято':''}"></i>`).join("")}</div>`;
-  $("#kpis").innerHTML=`
-    <div class="kpi"><div class="n">${req}</div><div class="l">ФОС требуется</div></div>
-    <div class="kpi"><div class="n" style="color:var(--ready)">${pres}</div><div class="l">файл есть</div></div>
-    <div class="kpi hot"><div class="n">${miss}</div><div class="l">создать с нуля</div></div>
-    <div class="kpi"><div class="n">${ready}<span style="font-size:14px;color:var(--faint)">/${themes}</span></div><div class="l">тем готово</div></div>
-    <div class="kpi mid"><div class="n">${apprFos}/${req}</div><div class="l">принято руков.</div></div>`;
-}
-function renderPeople(){
-  const map={};ORDER.forEach(k=>map[k]=[]);
-  eachCell((d,sem,c)=>{c.themes.forEach((t,i)=>{if(map[t.own])map[t.own].push({label:`${d.name} · ${sem} сем`,theme:t.name});});});
-  let total=0,appr=0;eachCell((d,s,c)=>{total++;if(isAppr(c))appr++;});
-  const el=$("#people");el.innerHTML="";
-  ORDER.forEach(k=>{const items=map[k],t=TEACHERS[k],isHead=k===HEAD;
-    const div=document.createElement("div");div.className="person"+(items.length?"":" empty")+(isHead?" head":"");
-    const badge=isHead?`<span class="role">руководитель · приёмка ${appr}/${total}</span>`:`<span class="role">${t.sp.split(" · ")[0]}</span>`;
-    div.innerHTML=`<div class="pn"><span>${t.full}${badge}</span><span class="cnt" style="background:${t.color}">${items.length}</span></div>
-      <ul>${items.length?items.slice(0,7).map(i=>`<li><span>${i.theme}</span><span class="lp">${i.label.split(" · ")[0].slice(0,6)}·${i.label.split("· ")[1]||''}</span></li>`).join("")+(items.length>7?`<li><span>… ещё ${items.length-7}</span><span></span></li>`:""):'<li><span>тем не назначено</span></li>'}</ul>`;
-    el.appendChild(div);
-  });
-}
-
-/* ===== drawer ===== */
-let CUR=null;
-const STLAB={not_started:"не начато",draft:"черновик",ready:"готово"};
-function themeRows(c){
-  const N=c.themes.length,canAppr=ME===HEAD;
-  return c.themes.map((t,i)=>{
-    const q=`${quota(TARGET.tests,N,i)}т·${quota(TARGET.theor,N,i)}в·${quota(TARGET.tasks,N,i)}з`;
-    const opts=ORDER.map(k=>`<option value="${k}" ${t.own===k?'selected':''}>${TEACHERS[k].full}</option>`).join("");
-    const seg=st=>`<button data-i="${i}" data-s="${st}" class="${t.status===st?'on':''}">${STLAB[st]}</button>`;
-    const appr=canAppr
-      ? `<label class="tapr"><input type="checkbox" data-ap="${i}" ${t.approved?'checked':''}>принять</label>`
-      : `<span class="tapr ro">${t.approved?'<span class="ok">✓ принято</span>':'на приёмке'}</span>`;
-    return `<div class="tcard">
-      <div class="tc-top"><span class="tn">${i+1}</span><span class="tt">${t.name}</span><span class="tq">${q}</span></div>
-      <div class="tc-ctl">
-        <div class="statusseg">${seg('not_started')}${seg('draft')}${seg('ready')}</div>
-        <select data-own="${i}">${opts}</select>${appr}
-      </div></div>`;
-  }).join("");
-}
-function workloadSummary(c){
-  const cnt={};c.themes.forEach(t=>cnt[t.own]=(cnt[t.own]||0)+1);
-  return `<div class="workload">${ORDER.filter(k=>cnt[k]).map(k=>{const t=TEACHERS[k];
-    return `<span class="wl"><span class="mini" style="background:${t.color}">${ini(k)}</span>${t.full.split(" ")[0]} <b>${cnt[k]}</b></span>`;}).join("")}</div>`;
-}
-function approvalBlock(c){
-  const self=c.themes.some(t=>t.own===HEAD)&&c.themes.every(t=>t.own===HEAD);
-  const n=apprCount(c),N=c.themes.length,done=isAppr(c);
-  return `<div class="approval ${done?'ok':''}">
-    <div class="apr-row"><div><div class="apr-t">Приёмка руководителя направления</div>
-      <div class="apr-s">${TEACHERS[HEAD].full} — принимает темы по одной (галочки выше)</div></div>
-      <div class="apr-sum"><b>${n}</b>/${N} тем</div></div>
-    ${done?`<div class="apr-s" style="margin-top:8px;color:var(--ready)">✓ ФОС принят полностью</div>`:''}
-    ${ME!==HEAD?`<div class="apr-warn" style="color:var(--muted);background:#F1F4F6">Отмечать приёмку может только руководитель — выберите «Вы: ${TEACHERS[HEAD].full}» вверху страницы.</div>`:''}
-    ${self?`<div class="apr-warn">⚠ Весь ФОС ведёт руководитель. До подписи нужна независимая проверка (второй преподаватель или Учебный центр).</div>`:''}</div>`;
-}
-function openFosBtn(c){
-  return c.drive
-    ? `<a class="open-fos" href="${c.drive}" target="_blank" rel="noopener">📄 Открыть ФОС в Google Docs →</a>`
-    : `<span class="open-fos disabled" title="ссылка на документ не задана — впишите её ниже">📄 Документ не привязан</span>`;
-}
-function driveField(c){
-  return `<div class="field"><label>Ссылка на документ в Google Drive (для совместной работы)</label>
-    <input id="drivein" type="url" placeholder="https://docs.google.com/document/d/…" value="${c.drive||''}">
-    ${c.drive?`<a class="open-link" href="${c.drive}" target="_blank">→ Открыть документ в Drive</a>`:''}</div>`;
-}
-function openDrawer(d,sem){
-  CUR={d,sem};const c=d.cells[sem];const p=readiness(c);
-  $("#dtitle").textContent=d.name;
-  $("#dmeta").textContent=`${d.code} · ${sem} семестр${c.file?" · "+c.file:" · файла нет"}`;
-  const pcolor=p>=88?'var(--ready)':(p>0?'var(--warn)':'var(--crit)');
-  let comp="";
-  if(c.status!=="missing"){
-    const row=(n,v,norm,u)=>{const st=v>=norm?"ok":(v>0?"part":"no"),l=st==="ok"?"норма":(st==="part"?"недобор":"нет");
-      return `<div class="comp"><span class="cn">${n}</span><span class="cv">${v}${u||""} / ${norm}${u||""}</span><span class="pill ${st}">${l}</span></div>`;};
-    comp=`<div class="sect-t">Состав ФОС (справочно)</div>
-      ${row("Тестовые задания",c.tests,80," шт")}${row("Теоретические вопросы",c.theor,30," шт")}${row("Клинические задачи",c.tasks,15," шт")}
-      <div class="comp"><span class="cn">Ключи ответов</span><span class="cv">${c.keys?"есть":"нет"}</span><span class="pill ${c.keys?'ok':'no'}">${c.keys?'ок':'нет'}</span></div>`;
   }
-  $("#dbody").innerHTML=`<div class="bigpct"><span class="v" style="color:${pcolor}">${p}%</span><span class="lab">готовность по темам<br><span style="font-size:11px;color:var(--faint)">принято ${apprCount(c)}/${c.themes.length}</span></span></div>
-    ${openFosBtn(c)}${comp}
-    <div class="sect-t">Темы · прогресс и приёмка · ${c.themes.length}</div>${workloadSummary(c)}${themeRows(c)}
-    ${driveField(c)}${approvalBlock(c)}`;
-  wireDrawer();
-  $("#drawer").classList.add("open");$("#drawer").setAttribute("aria-hidden","false");$("#scrim").classList.add("open");
-}
-function wireDrawer(){
-  const {d,sem}=CUR;const c=d.cells[sem];const body=$("#dbody");
-  body.querySelectorAll(".statusseg button").forEach(b=>b.addEventListener("click",()=>setTheme(d,sem,+b.dataset.i,"status",b.dataset.s)));
-  body.querySelectorAll("select[data-own]").forEach(sel=>sel.addEventListener("change",()=>setTheme(d,sem,+sel.dataset.own,"owner",sel.value)));
-  body.querySelectorAll("input[data-ap]").forEach(cb=>cb.addEventListener("change",()=>setTheme(d,sem,+cb.dataset.ap,"approved",cb.checked)));
-  const di=$("#drivein");if(di)di.addEventListener("change",()=>{c.drive=di.value.trim();saveState();openDrawer(d,sem);renderMatrix();});
-}
-function closeDrawer(){$("#drawer").classList.remove("open");$("#drawer").setAttribute("aria-hidden","true");$("#scrim").classList.remove("open");}
-
-/* ===== export / import ===== */
-function doExport(){
-  const blob=new Blob([JSON.stringify(snapshot(),null,2)],{type:"application/json"});
-  const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="fos-data.json";a.click();
-}
-function doImport(file){const r=new FileReader();r.onload=()=>{try{applySnapshot(JSON.parse(r.result));renderAll();saveState();}catch(e){alert("Не удалось прочитать файл");}};r.readAsText(file);}
-
-/* ===== кто я ===== */
-function renderWhoami(){
-  const opts=`<option value="">— выберите себя —</option>`+ORDER.map(k=>`<option value="${k}" ${ME===k?'selected':''}>${TEACHERS[k].full}${k===HEAD?' · руководитель':''}</option>`).join("");
-  const mode=LIVE()?`<span class="mode on">● онлайн</span>`:`<span class="mode off">○ локальный режим</span>`;
-  $("#whoami").innerHTML=`Вы: <select id="mesel">${opts}</select> ${mode}
-    <span style="font-size:11px;color:var(--faint)">— отметки статуса и приёмки идут от вашего имени</span>`;
-  $("#mesel").addEventListener("change",e=>{ME=e.target.value;localStorage.setItem("fos-me",ME);renderWhoami();renderMatrix();if(CUR)openDrawer(CUR.d,CUR.sem);});
 }
 
-/* ===== активность и продуктивность ===== */
-function fosLabel(key){const p=String(key).split("#"),f=p[0].split(":"),d=DISCIPLINES.find(x=>x.id===f[0]);return d?`${d.name} · ${f[1]} сем`:p[0];}
-function actionLabel(a,v){
-  if(a==="status")return "статус → "+(STLAB[v]||v);
-  if(a==="approved")return (v===true||v==="true")?"принял(а) тему":"снял(а) приёмку";
-  if(a==="owner")return "ответственный → "+(TEACHERS[v]?TEACHERS[v].full.split(" ")[0]:v);
-  return a+" "+v;
+function openFos(key){
+  const f=D.fos[key];
+  $("#dt").textContent=`${f.disc} · ${f.sem} семестр`;
+  $("#dm").textContent=`${f.code}${f.srcFile?" · "+f.srcFile:" · файла нет"}`;
+  const miss=f.status==="missing";
+  const cross=f.themes.filter(t=>t.cross);
+  const drive=f.drive?`<a class="drv" href="${f.drive}" target="_blank">→ Открыть ФОС в Google Drive</a>`
+                     :`<span class="drv off">ссылка на документ ещё не задана</span>`;
+  const warn=cross.length?`<div class="warnbox"><b>Дефект ФОС:</b> ${cross.reduce((a,t)=>a+t.load,0)} заданий не относятся ни к одной теме этого ФОС (реабилитация, организация). Вынесены в сквозные блоки — их нужно либо привязать к темам, либо расширить тематический план.</div>`:"";
+  const stats=miss
+    ? `<div class="stat"><div class="st bad"><b>0</b><span>из 80 тестов</span></div><div class="st bad"><b>0</b><span>из 30 вопросов</span></div><div class="st bad"><b>0</b><span>из 15 задач</span></div></div>`
+    : `<div class="stat"><div class="st"><b>${f.totals.tests}</b><span>тестов</span></div><div class="st"><b>${f.totals.theory}</b><span>вопросов</span></div><div class="st"><b>${f.totals.tasks}</b><span>задач</span></div></div>`;
+  const opts=o=>Object.keys(D.teachers).map(k=>`<option value="${k}" ${o===k?'selected':''}>${D.teachers[k].full}</option>`).join("");
+  const rows=f.themes.map((t,i)=>{
+    const dim=FILTER&&t.owner!==FILTER;
+    const num=(lab,v)=>v?`<span class="n">${lab} <b>${v}</b></span>`:`<span class="n e">${lab} —</span>`;
+    return `<div class="th ${t.cross?'cross':''} ${dim?'dimmed':''}">
+      <div class="top"><span class="nm">${t.name}${t.plan?'<span class="flag">план</span>':''}${t.cross?'<span class="flag">сквозной</span>':''}</span>
+        <select data-i="${i}">${opts(t.owner)}</select></div>
+      <div class="nums">${num('тесты',t.tests)}${num('вопросы',t.theory)}${num('задачи',t.tasks)}<span class="n">всего <b>${t.load}</b></span></div>
+    </div>`;}).join("");
+  $("#db").innerHTML=`${stats}${drive}${warn}
+    <div class="h3">Темы и закреплённые за ними задания · ${f.themes.length}</div>${rows}
+    ${miss?`<div class="warnbox" style="margin-top:12px">ФОС не существует. Номера выше — <b>плановые квоты</b>. Черновик генерирует Devin по образцу существующих ФОС, содержание проверяет профильный врач.</div>`:''}
+    <div class="appr ${f.approved?'on':''}">
+      <div><div class="t">Приёмка руководителя</div><div class="s">Петухов Е.А. — подпись под готовым ФОС</div></div>
+      <button id="ap" class="${f.approved?'on':''}">${f.approved?'✓ Принято':'Принять'}</button></div>`;
+  $("#db").querySelectorAll("select[data-i]").forEach(s=>s.onchange=()=>{
+    f.themes[+s.dataset.i].owner=s.value; save(); openFos(key); renderDocs(); renderMatrix();});
+  $("#ap").onclick=()=>{f.approved=!f.approved; save(); openFos(key); renderMatrix();};
+  $("#dw").classList.add("on"); $("#dw").setAttribute("aria-hidden","false"); $("#sc").classList.add("on");
 }
-function fmtTime(ts){try{return new Date(ts).toLocaleString('ru-RU',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'});}catch(e){return ts;}}
-function renderActivity(){
-  const feed=$("#feed");
-  feed.innerHTML=LOG.length
-    ? LOG.slice(0,40).map(e=>`<div class="ev"><span class="et">${fmtTime(e.ts)}</span>
-        <span><span class="ea">${e.actor||'—'}</span> <span class="ed">${actionLabel(e.action,e.value)}</span> · <span class="ed">${fosLabel(e.key)}</span></span></div>`).join("")
-    : `<div class="empty">Пока нет событий. Меняйте статусы тем в карточках ФОС — здесь появится живая лента.</div>`;
-  const map={};ORDER.forEach(k=>map[k]={total:0,ready:0,draft:0});
-  eachCell((d,sem,c)=>c.themes.forEach(t=>{const m=map[t.own];if(m){m.total++;if(t.approved||t.status==="ready")m.ready++;else if(t.status==="draft")m.draft++;}}));
-  $("#prog").innerHTML=ORDER.map(k=>{const m=map[k],t=TEACHERS[k],tot=m.total||1;
-    return `<div class="pr"><div class="av" style="background:${t.color}">${ini(k)}</div>
-      <span class="nm">${t.full.split(" ")[0]}</span>
-      <span class="mb"><i class="ready" style="width:${100*m.ready/tot}%"></i><i class="draft" style="width:${100*m.draft/tot}%"></i></span>
-      <span class="pc">${m.ready}/${m.total} гот.</span></div>`;}).join("");
-  $("#actsub").textContent=LIVE()
-    ? "Живая лента изменений и прогресс по преподавателям. Обновляется автоматически каждые ~15 сек."
-    : "Лента изменений (локальный режим). Онлайн-синхронизация включится после подключения бэкенда (WEBAPP_URL).";
+function closeFos(){$("#dw").classList.remove("on");$("#dw").setAttribute("aria-hidden","true");$("#sc").classList.remove("on");}
+$("#sc").onclick=closeFos; $("#xb").onclick=closeFos;
+document.onkeydown=e=>{if(e.key==="Escape")closeFos();};
+$("#clr").onclick=()=>{FILTER=null;$("#clr").hidden=true;renderDocs();renderMatrix();};
+function renderFoot(){
+  const fd=(D._meta&&D._meta.driveFolder)||"";
+  $("#ft").innerHTML=`Номера заданий получены дословным разбором файлов ФОС (тематический план · тесты · вопросы · задачи).
+    Разметка рабочая: ответственного можно переназначить прямо здесь.${fd?` · <a href="${fd}" target="_blank">папка ФОС в Google Drive</a>`:''}`;
 }
-
-/* ===== boot ===== */
-function renderAll(){renderMatrix();renderKpis();renderPeople();renderActivity();}
-$("#scrim").addEventListener("click",closeDrawer);
-$("#dclose").addEventListener("click",closeDrawer);
-document.addEventListener("keydown",e=>{if(e.key==="Escape")closeDrawer();});
-$("#filters").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;FILTER=b.dataset.f;
-  $("#filters").querySelectorAll("button").forEach(x=>x.classList.toggle("on",x===b));renderMatrix();});
-$("#exp").addEventListener("click",doExport);
-$("#imp").addEventListener("click",()=>$("#impfile").click());
-$("#impfile").addEventListener("change",e=>{if(e.target.files[0])doImport(e.target.files[0]);});
-$("#foot").innerHTML=`Источник структуры: 31.08.57 Онкология ТП нов.xlsx · РУП · разбор ОМ-файлов · «Преподавательский состав».
-  Готовность — по статусам тем (не оценка медицинского содержания). Объём в теме: т=тесты, в=вопросы, з=задачи.
-  Живое состояние (статусы/приёмка) хранится на бэкенде; распределение — в fos-data.json, «Экспорт назначений».`;
-renderRoster();renderWhoami();
-(async()=>{
-  await loadState();renderAll();
-  if(LIVE()){setInterval(refreshLive,15000);window.addEventListener("focus",refreshLive);}
-})();
+boot();
 </script>
 </body>
 </html>
