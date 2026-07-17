@@ -107,6 +107,9 @@ td.c{padding:0;width:165px}
 .pbar{height:6px;background:var(--line);border-radius:3px;overflow:hidden;margin:2px 0 4px}
 .pbar i{display:block;height:100%;background:var(--ok);border-radius:3px;transition:width .15s}
 .cellprog{font:600 10px/1.3 'IBM Plex Mono',monospace;color:var(--ok);margin-bottom:12px}
+.modebadge{font:600 10px/1 'IBM Plex Mono',monospace;padding:4px 9px;border-radius:10px;letter-spacing:.02em;white-space:nowrap}
+.modebadge.on{background:var(--ok-bg);color:var(--ok)}
+.modebadge.off{background:#F1F4F6;color:var(--faint)}
 .dbar{height:4px;background:var(--line);border-radius:3px;overflow:hidden;margin-top:5px}
 .dbar i{display:block;height:100%;background:var(--ok);border-radius:3px}
 .warnbox{background:var(--warn-bg);border-left:3px solid var(--warn);padding:9px 11px;border-radius:0 3px 3px 0;font-size:12px;color:#7A5210;margin-bottom:12px;line-height:1.45}
@@ -130,7 +133,7 @@ footer{margin-top:26px;padding-top:14px;border-top:1px solid var(--line);font:40
   </header>
 
   <div class="howto">
-    <h2>Как пользоваться</h2>
+    <h2>Как пользоваться <span id="mode" class="modebadge off" style="margin-left:8px"></span></h2>
     <ol>
       <li><b>Нажмите на врача</b> — в матрице подсветятся только его ФОС и объём его заданий.</li>
       <li><b>Нажмите на ячейку ФОС</b> — откроются темы с точными номерами заданий и ссылка на документ в Google Drive.</li>
@@ -184,11 +187,36 @@ function parseNums(str){const out=[];if(!str)return out;String(str).split(",").f
   const m=p.match(/^(\d+)\s*[–-]\s*(\d+)$/);if(m){for(let n=+m[1];n<=+m[2];n++)out.push(n);}else{const n=parseInt(p,10);if(!isNaN(n))out.push(n);}});return out;}
 function isDone(key,ty,n){return !!(PROG[key]&&PROG[key][ty]&&PROG[key][ty][n]);}
 function toggleDone(key,ty,n){PROG[key]=PROG[key]||{};PROG[key][ty]=PROG[key][ty]||{};
-  if(PROG[key][ty][n])delete PROG[key][ty][n];else PROG[key][ty][n]=1;saveProg();}
+  const now=!PROG[key][ty][n];
+  if(now)PROG[key][ty][n]=1;else delete PROG[key][ty][n];
+  saveProg();
+  if(now)fbPut(`prog/${key}/${ty}/${n}`,1);else fbDel(`prog/${key}/${ty}/${n}`);}
 function themeProg(key,t){let d=0,tot=0;["tests","theory","tasks"].forEach(ty=>parseNums(t[ty]).forEach(n=>{tot++;if(isDone(key,ty,n))d++;}));return {d,tot};}
 function fosProg(key){let d=0,tot=0;D.fos[key].themes.forEach(t=>{const p=themeProg(key,t);d+=p.d;tot+=p.tot;});return {d,tot};}
 function teacherProg(k){let d=0,tot=0;for(const key in D.fos)D.fos[key].themes.forEach(t=>{if(t.owner!==k)return;const p=themeProg(key,t);d+=p.d;tot+=p.tot;});return {d,tot};}
 const pct=(d,t)=>t?Math.round(d/t*100):0;
+
+/* ===== синхронизация между людьми (фича №2, Firebase Realtime Database) ===== */
+const SYNC_URL="https://education-mccc-default-rtdb.europe-west1.firebasedatabase.app/";   // Firebase RTDB — онлайн-режим для всех
+const LIVE=()=>!!SYNC_URL;
+let curKey=null, LASTSYNC="";
+const fbURL=path=>SYNC_URL.replace(/\/+$/,"")+"/"+path+".json";
+async function fbGet(path){try{const r=await fetch(fbURL(path),{cache:"no-store"});return r.ok?await r.json():null;}catch(e){return null;}}
+function fbPut(path,val){if(LIVE())fetch(fbURL(path),{method:"PUT",body:JSON.stringify(val)}).catch(()=>{});}
+function fbDel(path){if(LIVE())fetch(fbURL(path),{method:"DELETE"}).catch(()=>{});}
+async function pullRemote(){
+  if(!LIVE())return;
+  const pr=await fbGet("prog"), st=await fbGet("state");
+  const sig=JSON.stringify([pr,st]);
+  if(sig===LASTSYNC)return;              // ничего не изменилось — не дёргаем интерфейс
+  LASTSYNC=sig;
+  PROG=pr||{}; saveProg(); if(st)applySnap(st);
+  renderDocs(); renderMatrix();
+  if(curKey&&$("#dw").classList.contains("on"))openFos(curKey);
+}
+function renderMode(){const m=$("#mode");if(!m)return;
+  m.className="modebadge "+(LIVE()?"on":"off");
+  m.textContent=LIVE()?"● онлайн · изменения видят все":"○ локальный режим · только этот браузер";}
 
 function snap(){const s={};for(const k in D.fos){const f=D.fos[k];
   s[k]={owners:f.themes.map(t=>t.owner),approved:f.approved,drive:f.drive};}return s;}
@@ -202,7 +230,8 @@ function loadLocal(){try{const v=localStorage.getItem(KEY);if(v)applySnap(JSON.p
 async function boot(){
   try{const r=await fetch('fos-data.json',{cache:'no-store'});D=await r.json();}
   catch(e){$("#tb").innerHTML='<tr><td style="padding:20px;color:#B23B3B">Не найден fos-data.json — он должен лежать рядом с index.html</td></tr>';return;}
-  loadLocal(); loadProg(); renderDocs(); renderMatrix(); renderFoot();
+  loadLocal(); loadProg(); renderDocs(); renderMatrix(); renderFoot(); renderMode();
+  if(LIVE()){ await pullRemote(); setInterval(pullRemote,8000); window.addEventListener("focus",pullRemote); }
 }
 const loadOf=k=>{let n=0;for(const f of Object.values(D.fos))for(const t of f.themes)if(t.owner===k)n+=t.load;return n;};
 const themesOf=k=>{let n=0;for(const f of Object.values(D.fos))for(const t of f.themes)if(t.owner===k)n++;return n;};
@@ -258,7 +287,7 @@ function renderMatrix(){
 }
 
 function openFos(key){
-  const f=D.fos[key];
+  const f=D.fos[key]; curKey=key;
   $("#dt").textContent=`${f.disc} · ${f.sem} семестр`;
   $("#dm").textContent=`${f.code}${f.srcFile?" · "+f.srcFile:" · файла нет"}`;
   const miss=f.status==="missing";
@@ -292,7 +321,8 @@ function openFos(key){
       <div><div class="t">Приёмка руководителя</div><div class="s">Петухов Е.А. — подпись под готовым ФОС</div></div>
       <button id="ap" class="${f.approved?'on':''}">${f.approved?'✓ Принято':'Принять'}</button></div>`;
   $("#db").querySelectorAll("select[data-i]").forEach(s=>s.onchange=()=>{
-    f.themes[+s.dataset.i].owner=s.value; save(); openFos(key); renderDocs(); renderMatrix();});
+    f.themes[+s.dataset.i].owner=s.value; save(); fbPut(`state/${key}/owners`,f.themes.map(t=>t.owner));
+    openFos(key); renderDocs(); renderMatrix();});
   $("#db").querySelectorAll(".qp").forEach(b=>b.onclick=()=>{
     toggleDone(key,b.dataset.t,+b.dataset.n); b.classList.toggle("done");
     const grp=b.closest(".numgrp"),lab=grp.querySelector(".nlab b");
@@ -302,7 +332,7 @@ function openFos(key){
     const fp=fosProg(key),pb=$("#db").querySelector(".pbar i"),cp=$("#db").querySelector(".cellprog");
     if(pb)pb.style.width=pct(fp.d,fp.tot)+"%"; if(cp)cp.textContent=`готово ${fp.d} из ${fp.tot} заданий`;
     renderDocs(); renderMatrix();});
-  $("#ap").onclick=()=>{f.approved=!f.approved; save(); openFos(key); renderMatrix();};
+  $("#ap").onclick=()=>{f.approved=!f.approved; save(); fbPut(`state/${key}/approved`,f.approved); openFos(key); renderMatrix();};
   $("#dw").classList.add("on"); $("#dw").setAttribute("aria-hidden","false"); $("#sc").classList.add("on");
 }
 function closeFos(){$("#dw").classList.remove("on");$("#dw").setAttribute("aria-hidden","true");$("#sc").classList.remove("on");}
