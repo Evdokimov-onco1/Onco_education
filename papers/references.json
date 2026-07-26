@@ -1,0 +1,619 @@
+{
+  "meta": {
+    "topic": "Онкокардиология при РПЖ: Энза / Аби / химиотерапия у кардиоотягощённого пациента с мКРРПЖ",
+    "stage": "Этап 2 — источники для скачивания",
+    "source_file": "istochniki-etap2.md",
+    "note": "Названия статей развёрнуты до полных журнальных заголовков (сокращения мКРРПЖ/ADT/RCT раскрыты) — это нужно для точного поиска в Crossref. Библиографические данные (журнал, год, том, страница) взяты из исходного списка без изменений.",
+    "counts": {"A": 34, "B": 37, "E": 6, "total": 77}
+  },
+  "references": [
+    {
+      "id": "A1.1", "level": "A", "block": "A1", "block_title": "Онкокардиология как рамка: официальные документы",
+      "stars": 1, "first_author": "Okwuosa",
+      "authors": "Okwuosa TM, Morgans A, Rhee JW, et al.",
+      "title": "Impact of Hormonal Therapies for Treatment of Hormone-Dependent Cancers (Breast and Prostate) on the Cardiovascular System: A Scientific Statement From the American Heart Association",
+      "journal": "Circ Genom Precis Med", "year": 2021, "volume": "14", "pages": "e000082",
+      "why": "Базовый документ AHA по кардиотоксичности гормонотерапии. Каркас всей вводной лекции"
+    },
+    {
+      "id": "A1.2", "level": "A", "block": "A1", "block_title": "Онкокардиология как рамка: официальные документы",
+      "stars": 1, "first_author": "Bhatia",
+      "authors": "Bhatia N, Santos M, Jones LW, et al.",
+      "title": "Cardiovascular Effects of Androgen Deprivation Therapy for the Treatment of Prostate Cancer: ABCDE Steps to Reduce Cardiovascular Disease in Patients With Prostate Cancer",
+      "journal": "Circulation", "year": 2016, "volume": "133", "pages": "537",
+      "why": "Первоисточник алгоритма ABCDE — готовый практический слайд"
+    },
+    {
+      "id": "A1.3", "level": "A", "block": "A1", "block_title": "Онкокардиология как рамка: официальные документы",
+      "stars": 1, "first_author": "Kenk",
+      "authors": "Kenk M, Grégoire JC, Coté MA, et al.",
+      "title": "Optimizing screening and management of cardiovascular health in prostate cancer: A review",
+      "journal": "Can Urol Assoc J", "year": 2020, "volume": "14", "pages": "E458",
+      "why": "Первоисточник опросника STAMP + полный перечень мер риск-редукции"
+    },
+    {
+      "id": "A1.4", "level": "A", "block": "A1", "block_title": "Онкокардиология как рамка: официальные документы",
+      "stars": 0, "first_author": "Levine",
+      "authors": "Levine GN, D'Amico AV, Berger P, et al.",
+      "title": "Androgen-deprivation therapy in prostate cancer and cardiovascular risk: a science advisory from the American Heart Association, American Cancer Society, and American Urological Association",
+      "journal": "Circulation", "year": 2010, "volume": "121", "pages": "833",
+      "why": "Классическое трёхстороннее заявление: ежегодно АД + липиды + глюкоза"
+    },
+    {
+      "id": "A1.5", "level": "A", "block": "A1", "block_title": "Онкокардиология как рамка: официальные документы",
+      "stars": 0, "first_author": "Armenian",
+      "authors": "Armenian SH, Lacchetti C, Barac A, et al.",
+      "title": "Prevention and Monitoring of Cardiac Dysfunction in Survivors of Adult Cancers: American Society of Clinical Oncology Clinical Practice Guideline",
+      "journal": "J Clin Oncol", "year": 2017, "volume": "35", "pages": "893",
+      "why": "Исходная ЭхоКГ до терапии, тропонин/НУП/GLS, совместное решение онколог+кардиолог (рек. 4.4)"
+    },
+    {
+      "id": "A1.6", "level": "A", "block": "A1", "block_title": "Онкокардиология как рамка: официальные документы",
+      "stars": 0, "first_author": "Higano",
+      "authors": "Higano CS.",
+      "title": "Cardiovascular Disease and Androgen Axis-Targeted Drugs for Prostate Cancer",
+      "journal": "N Engl J Med", "year": 2020, "volume": "382", "pages": "2257",
+      "why": "Редакционная статья NEJM ровно по теме вебинара — готовые формулировки"
+    },
+
+    {
+      "id": "A2.1", "level": "A", "block": "A2", "block_title": "Эпидемиология и конкурирующая смертность",
+      "stars": 1, "first_author": "Ketchandji",
+      "authors": "Ketchandji M, Kuo YF, Shahinian VB, Goodwin JS.",
+      "title": "Cause of death in older men after the diagnosis of prostate cancer",
+      "journal": "J Am Geriatr Soc", "year": 2009, "volume": "57", "pages": "24",
+      "why": "Первоисточник тезиса «ССЗ — ведущая неопухолевая причина смерти при РПЖ»"
+    },
+    {
+      "id": "A2.2", "level": "A", "block": "A2", "block_title": "Эпидемиология и конкурирующая смертность",
+      "stars": 0, "first_author": "Leong",
+      "authors": "Leong DP, Fradet V, Shayegan B, et al.",
+      "title": "Cardiovascular Risk in Men with Prostate Cancer: Insights from the RADICAL PC Study",
+      "journal": "J Urol", "year": 2020, "volume": "203", "pages": "1109",
+      "why": "Реальная распространённость ССР у мужчин с РПЖ — портрет «кардиоотягощённого пациента»"
+    },
+    {
+      "id": "A2.3", "level": "A", "block": "A2", "block_title": "Эпидемиология и конкурирующая смертность",
+      "stars": 0, "first_author": "Sturgeon",
+      "authors": "Sturgeon KM, Deng L, Bluethmann SM, et al.",
+      "title": "A population-based study of cardiovascular disease mortality risk in US cancer patients",
+      "journal": "Eur Heart J", "year": 2019, "volume": "40", "pages": "3889",
+      "why": "Популяционные цифры ССС-смертности у онкобольных для открывающего слайда"
+    },
+    {
+      "id": "A2.4", "level": "A", "block": "A2", "block_title": "Эпидемиология и конкурирующая смертность",
+      "stars": 0, "first_author": "Strongman",
+      "authors": "Strongman H, Gadd S, Matthews A, et al.",
+      "title": "Medium and long-term risks of specific cardiovascular diseases in survivors of 20 adult cancers: a population-based cohort study using multiple linked UK electronic health records databases",
+      "journal": "Lancet", "year": 2019, "volume": "394", "pages": "1041",
+      "why": "ССЗ — главная жизнь-лимитирующая коморбидность у переживших рак"
+    },
+
+    {
+      "id": "A3.1", "level": "A", "block": "A3", "block_title": "АДТ и сердечно-сосудистый риск: две стороны спора",
+      "stars": 1, "first_author": "Bosco",
+      "authors": "Bosco C, Bosnyak Z, Malmberg A, et al.",
+      "title": "Quantifying observational evidence for risk of fatal and nonfatal cardiovascular disease following androgen deprivation therapy for prostate cancer: a meta-analysis",
+      "journal": "Eur Urol", "year": 2015, "volume": "68", "pages": "386",
+      "why": "Главная цифра «за»: ~415 000 мужчин, ОР 1,38 (1,29–1,48)"
+    },
+    {
+      "id": "A3.2", "level": "A", "block": "A3", "block_title": "АДТ и сердечно-сосудистый риск: две стороны спора",
+      "stars": 1, "first_author": "Nguyen",
+      "authors": "Nguyen PL, Je Y, Schutz FA, et al.",
+      "title": "Association of androgen deprivation therapy with cardiovascular death in patients with prostate cancer: a meta-analysis of randomized trials",
+      "journal": "JAMA", "year": 2011, "volume": "306", "pages": "2359",
+      "why": "Главный контраргумент: метаанализ РКИ — 11% vs 11,2%, ОР 0,93"
+    },
+    {
+      "id": "A3.3", "level": "A", "block": "A3", "block_title": "АДТ и сердечно-сосудистый риск: две стороны спора",
+      "stars": 1, "first_author": "Saigal",
+      "authors": "Saigal CS, Gore JL, Krupski TL, et al.",
+      "title": "Androgen deprivation therapy increases cardiovascular morbidity in men with prostate cancer",
+      "journal": "Cancer", "year": 2007, "volume": "110", "pages": "1493",
+      "why": "SEER-Medicare: +20% ИБС за 5 лет, HR 1,20"
+    },
+    {
+      "id": "A3.4", "level": "A", "block": "A3", "block_title": "АДТ и сердечно-сосудистый риск: две стороны спора",
+      "stars": 0, "first_author": "O'Farrell",
+      "authors": "O'Farrell S, Garmo H, Holmberg L, et al.",
+      "title": "Risk and timing of cardiovascular disease after androgen-deprivation therapy in men with prostate cancer",
+      "journal": "J Clin Oncol", "year": 2015, "volume": "33", "pages": "1243",
+      "why": "Тайминг: максимум риска — первые 6 мес, особенно при ≥2 событиях в анамнезе"
+    },
+    {
+      "id": "A3.5", "level": "A", "block": "A3", "block_title": "АДТ и сердечно-сосудистый риск: две стороны спора",
+      "stars": 0, "first_author": "Nanda",
+      "authors": "Nanda A, Chen MH, Braccioforte MH, et al.",
+      "title": "Hormonal therapy use for prostate cancer and mortality in men with coronary artery disease-induced congestive heart failure or myocardial infarction",
+      "journal": "JAMA", "year": 2009, "volume": "302", "pages": "866",
+      "why": "Точное попадание в аудиторию вебинара: ХСН ишемического генеза / ИМ + гормонотерапия"
+    },
+
+    {
+      "id": "A4.1", "level": "A", "block": "A4", "block_title": "Агонист vs антагонист ГнРГ",
+      "stars": 2, "first_author": "Shore", "trial": "HERO",
+      "authors": "Shore ND, Saad F, Cookson MS, et al.",
+      "title": "Oral Relugolix for Androgen-Deprivation Therapy in Advanced Prostate Cancer",
+      "journal": "N Engl J Med", "year": 2020, "volume": "382", "pages": "2187",
+      "why": "HERO — центральная цифра лекции: MACE 2,9% vs 6,2%, HR 0,46; в подгруппе с ССЗ 3,6% vs 17,8%. Встретилась в 4 обзорах из 8"
+    },
+    {
+      "id": "A4.2", "level": "A", "block": "A4", "block_title": "Агонист vs антагонист ГнРГ",
+      "stars": 2, "first_author": "Lopes", "trial": "PRONOUNCE",
+      "authors": "Lopes RD, Higano CS, Slovin SF, et al.",
+      "title": "Cardiovascular Safety of Degarelix Versus Leuprolide in Patients With Prostate Cancer: The Primary Results of the PRONOUNCE Randomized Trial",
+      "journal": "Circulation", "year": 2021, "volume": "144", "pages": "1295",
+      "why": "PRONOUNCE — единственное РКИ с адъюдицированными MACE, отрицательный результат + роль обязательной кардиооптимизации. Встретилось в 4 обзорах"
+    },
+    {
+      "id": "A4.3", "level": "A", "block": "A4", "block_title": "Агонист vs антагонист ГнРГ",
+      "stars": 1, "first_author": "Albertsen",
+      "authors": "Albertsen PC, Klotz L, Tombal B, et al.",
+      "title": "Cardiovascular morbidity associated with gonadotropin releasing hormone agonists and an antagonist",
+      "journal": "Eur Urol", "year": 2014, "volume": "65", "pages": "565",
+      "why": "Пул 6 РКИ, n=2328: HR 0,44 (0,26–0,74) у пациентов с ССП"
+    },
+    {
+      "id": "A4.4", "level": "A", "block": "A4", "block_title": "Агонист vs антагонист ГнРГ",
+      "stars": 0, "first_author": "Abufaraj",
+      "authors": "Abufaraj M, Iwata T, Kimura S, et al.",
+      "title": "Differential Impact of Gonadotropin-releasing Hormone Antagonist Versus Agonist on Clinical Safety and Oncologic Outcomes on Patients with Metastatic Prostate Cancer: A Meta-analysis of Randomized Controlled Trials",
+      "journal": "Eur Urol", "year": 2021, "volume": "79", "pages": "44",
+      "why": "Метаанализ 8 РКИ, n=2632: ССС-события RR 0,52; смертность RR 0,48"
+    },
+    {
+      "id": "A4.5", "level": "A", "block": "A4", "block_title": "Агонист vs антагонист ГнРГ",
+      "stars": 0, "first_author": "Tisseverasinghe",
+      "authors": "Tisseverasinghe S, Tolba M, Saad F, et al.",
+      "title": "Should Prostate Cancer Patients With History of Cardiovascular Events Be Preferentially Treated With Luteinizing Hormone-Releasing Hormone Antagonists?",
+      "journal": "J Clin Oncol", "year": 2022, "volume": "40", "pages": "4173",
+      "why": "Прямой ответ на вопрос блока — готовая цитата для слайда"
+    },
+
+    {
+      "id": "A5.1", "level": "A", "block": "A5", "block_title": "Кардиотоксичность АРПИ 2 поколения",
+      "stars": 1, "first_author": "Lai",
+      "authors": "Lai LY, Oerline MK, Caram MEV, et al.",
+      "title": "Risk of Metabolic and Cardiovascular Adverse Events With Abiraterone or Enzalutamide Among Men With Advanced Prostate Cancer",
+      "journal": "J Natl Cancer Inst", "year": 2022, "volume": "114", "pages": "1127",
+      "why": "Ключевая работа для слайда «Аби vs Энза» — прямое сравнение в реальной практике"
+    },
+    {
+      "id": "A5.2", "level": "A", "block": "A5", "block_title": "Кардиотоксичность АРПИ 2 поколения",
+      "stars": 1, "first_author": "Iacovelli",
+      "authors": "Iacovelli R, Ciccarese C, Bria E, et al.",
+      "title": "The Cardiovascular Toxicity of Abiraterone and Enzalutamide in Prostate Cancer",
+      "journal": "Clin Genitourin Cancer", "year": 2018, "volume": "16", "pages": "e645",
+      "why": "Метаанализ кардиотоксичности двух препаратов — количественная база того же слайда"
+    },
+    {
+      "id": "A5.3", "level": "A", "block": "A5", "block_title": "Кардиотоксичность АРПИ 2 поколения",
+      "stars": 0, "first_author": "Rizzo",
+      "authors": "Rizzo A, Merler S, Sorgentoni G, et al.",
+      "title": "Risk of cardiovascular toxicities and hypertension in nonmetastatic castration-resistant prostate cancer patients treated with novel hormonal agents: a systematic review and meta-analysis",
+      "journal": "Expert Opin Drug Metab Toxicol", "year": 2021, "volume": "17", "pages": "1237",
+      "why": "ОР ССС-токсичности и АГ на АРПИ — цифры, которых нет в самих обзорах"
+    },
+    {
+      "id": "A5.4", "level": "A", "block": "A5", "block_title": "Кардиотоксичность АРПИ 2 поколения",
+      "stars": 1, "first_author": "Myint",
+      "authors": "Myint ZW, Momo HD, Otto DE, et al.",
+      "title": "Evaluation of Fall and Fracture Risk Among Men With Prostate Cancer Treated With Androgen Receptor Inhibitors: A Systematic Review and Meta-analysis",
+      "journal": "JAMA Netw Open", "year": 2020, "volume": "3", "pages": "e2025826",
+      "why": "Падения RR 1,80, переломы RR 1,59, апалутамид 12%/10%"
+    },
+    {
+      "id": "A5.5", "level": "A", "block": "A5", "block_title": "Кардиотоксичность АРПИ 2 поколения",
+      "stars": 0, "first_author": "Ternov", "trial": "HEAT",
+      "authors": "Ternov KK, Sønksen J, Fode M, et al.",
+      "title": "Fatigue, health-related quality-of-life and metabolic changes in men treated with enzalutamide or abiraterone acetate plus prednisone for metastatic castration-resistant prostate cancer: A randomised clinical trial (HEAT)",
+      "journal": "Eur J Cancer", "year": 2022, "volume": "171", "pages": "75",
+      "why": "Единственное прямое РКИ Аби vs Энза: HbA1c, впервые выявленный СД 8/85 vs 0/84"
+    },
+
+    {
+      "id": "A6.1", "level": "A", "block": "A6", "block_title": "Регистрационные РКИ мКРРПЖ",
+      "stars": 0, "first_author": "Scher", "trial": "AFFIRM",
+      "authors": "Scher HI, Fizazi K, Saad F, et al.",
+      "title": "Increased survival with enzalutamide in prostate cancer after chemotherapy",
+      "journal": "N Engl J Med", "year": 2012, "volume": "367", "pages": "1187",
+      "why": "AFFIRM — +4,8 мес; первичный источник данных по АГ и судорогам на энзалутамиде"
+    },
+    {
+      "id": "A6.2", "level": "A", "block": "A6", "block_title": "Регистрационные РКИ мКРРПЖ",
+      "stars": 0, "first_author": "Beer", "trial": "PREVAIL",
+      "authors": "Beer TM, Armstrong AJ, Rathkopf DE, et al.",
+      "title": "Enzalutamide in metastatic prostate cancer before chemotherapy",
+      "journal": "N Engl J Med", "year": 2014, "volume": "371", "pages": "424",
+      "why": "PREVAIL — хемонаивные мКРРПЖ"
+    },
+    {
+      "id": "A6.3", "level": "A", "block": "A6", "block_title": "Регистрационные РКИ мКРРПЖ",
+      "stars": 0, "first_author": "Fizazi", "trial": "COU-AA-301",
+      "authors": "Fizazi K, Scher HI, Molina A, et al.",
+      "title": "Abiraterone acetate for treatment of metastatic castration-resistant prostate cancer: final overall survival analysis of the COU-AA-301 randomised, double-blind, placebo-controlled phase 3 study",
+      "journal": "Lancet Oncol", "year": 2012, "volume": "13", "pages": "983",
+      "why": "COU-AA-301 финал — +4,6 мес, HR 0,53; профиль минералокортикоидной токсичности"
+    },
+    {
+      "id": "A6.4", "level": "A", "block": "A6", "block_title": "Регистрационные РКИ мКРРПЖ",
+      "stars": 0, "first_author": "Ryan", "trial": "COU-AA-302",
+      "authors": "Ryan CJ, Smith MR, Fizazi K, et al.",
+      "title": "Abiraterone acetate plus prednisone versus placebo plus prednisone in chemotherapy-naive men with metastatic castration-resistant prostate cancer (COU-AA-302): final overall survival analysis of a randomised, double-blind, placebo-controlled phase 3 study",
+      "journal": "Lancet Oncol", "year": 2015, "volume": "16", "pages": "152",
+      "why": "+4,4 мес, HR 0,81"
+    },
+    {
+      "id": "A6.5", "level": "A", "block": "A6", "block_title": "Регистрационные РКИ мКРРПЖ",
+      "stars": 1, "first_author": "de Wit", "trial": "CARD",
+      "authors": "de Wit R, de Bono J, Sternberg CN, et al.",
+      "title": "Cabazitaxel versus Abiraterone or Enzalutamide in Metastatic Prostate Cancer",
+      "journal": "N Engl J Med", "year": 2019, "volume": "381", "pages": "2506",
+      "why": "CARD — главный аргумент против смены АРПИ на АРПИ: ОВ 13,6 vs 11 мес"
+    },
+    {
+      "id": "A6.6", "level": "A", "block": "A6", "block_title": "Регистрационные РКИ мКРРПЖ",
+      "stars": 0, "first_author": "de Bono", "trial": "TROPIC",
+      "authors": "de Bono JS, Oudard S, Ozguroglu M, et al.",
+      "title": "Prednisone plus cabazitaxel or mitoxantrone for metastatic castration-resistant prostate cancer progressing after docetaxel treatment: a randomised open-label trial",
+      "journal": "Lancet", "year": 2010, "volume": "376", "pages": "1147",
+      "why": "Регистрация кабазитаксела, HR 0,70"
+    },
+
+    {
+      "id": "A7.1", "level": "A", "block": "A7", "block_title": "Химиотерапия у пожилого/хрупкого пациента",
+      "stars": 0, "first_author": "Eisenberger", "trial": "PROSELICA",
+      "authors": "Eisenberger M, Hardy-Bessard AC, Kim CS, et al.",
+      "title": "Phase III Study Comparing a Reduced Dose of Cabazitaxel (20 mg/m2) and the Currently Approved Dose (25 mg/m2) in Postdocetaxel Patients With Metastatic Castration-Resistant Prostate Cancer-PROSELICA",
+      "journal": "J Clin Oncol", "year": 2017, "volume": "35", "pages": "3198",
+      "why": "Обоснование редукции дозы у ослабленного кардиопациента"
+    },
+    {
+      "id": "A7.2", "level": "A", "block": "A7", "block_title": "Химиотерапия у пожилого/хрупкого пациента",
+      "stars": 0, "first_author": "Oudard", "trial": "CABASTY",
+      "authors": "Oudard S, Ratta R, Voog E, et al.",
+      "title": "Biweekly vs Triweekly Cabazitaxel in Older Patients With Metastatic Castration-Resistant Prostate Cancer: The CABASTY Phase 3 Randomized Clinical Trial",
+      "journal": "JAMA Oncol", "year": 2023, "volume": "9", "pages": "1629",
+      "why": "Специально у пожилых: 16 мг/м² каждые 2 нед"
+    },
+    {
+      "id": "A7.3", "level": "A", "block": "A7", "block_title": "Химиотерапия у пожилого/хрупкого пациента",
+      "stars": 0, "first_author": "Oudard", "trial": "FIRSTANA",
+      "authors": "Oudard S, Fizazi K, Sengeløv L, et al.",
+      "title": "Cabazitaxel Versus Docetaxel As First-Line Therapy for Patients With Metastatic Castration-Resistant Prostate Cancer: A Randomized Phase III Trial-FIRSTANA",
+      "journal": "J Clin Oncol", "year": 2017, "volume": "35", "pages": "3189",
+      "why": "Сравнение профилей токсичности: отёки и нейропатия у доцетаксела"
+    },
+
+    {
+      "id": "B1.1", "level": "B", "block": "B1", "block_title": "Метаболизм, состав тела, диабет",
+      "stars": 0, "first_author": "Braga-Basaria",
+      "authors": "Braga-Basaria M, Dobs AS, Muller DC, et al.",
+      "title": "Metabolic syndrome in men with prostate cancer undergoing long-term androgen-deprivation therapy",
+      "journal": "J Clin Oncol", "year": 2006, "volume": "24", "pages": "3979", "why": ""
+    },
+    {
+      "id": "B1.2", "level": "B", "block": "B1", "block_title": "Метаболизм, состав тела, диабет",
+      "stars": 0, "first_author": "Kintzel",
+      "authors": "Kintzel PE, Chase SL, Schultz LM, O'Rourke TJ.",
+      "title": "Increased risk of metabolic syndrome, diabetes mellitus, and cardiovascular disease in men receiving androgen deprivation therapy for prostate cancer",
+      "journal": "Pharmacotherapy", "year": 2008, "volume": "28", "pages": "1511", "why": ""
+    },
+    {
+      "id": "B1.3", "level": "B", "block": "B1", "block_title": "Метаболизм, состав тела, диабет",
+      "stars": 0, "first_author": "Keating",
+      "authors": "Keating NL, Liu PH, O'Malley AJ, et al.",
+      "title": "Androgen-deprivation therapy and diabetes control among diabetic men with prostate cancer",
+      "journal": "Eur Urol", "year": 2014, "volume": "65", "pages": "816", "why": ""
+    },
+    {
+      "id": "B1.4", "level": "B", "block": "B1", "block_title": "Метаболизм, состав тела, диабет",
+      "stars": 0, "first_author": "Basaria",
+      "authors": "Basaria S, Taplin ME, McDonnell M, et al.",
+      "title": "Insulin resistance during androgen deprivation therapy in men with prostate cancer",
+      "journal": "Cancer", "year": 2024, "volume": "130", "pages": "3671", "why": ""
+    },
+    {
+      "id": "B1.5", "level": "B", "block": "B1", "block_title": "Метаболизм, состав тела, диабет",
+      "stars": 0, "first_author": "Troeschel",
+      "authors": "Troeschel AN, Hartman TJ, Jacobs EJ, et al.",
+      "title": "Postdiagnosis Body Mass Index, Weight Change, and Mortality From Prostate Cancer, Cardiovascular Disease, and All Causes Among Survivors of Nonmetastatic Prostate Cancer",
+      "journal": "J Clin Oncol", "year": 2020, "volume": "38", "pages": "2018", "why": ""
+    },
+    {
+      "id": "B1.6", "level": "B", "block": "B1", "block_title": "Метаболизм, состав тела, диабет",
+      "stars": 0, "first_author": "Smith",
+      "authors": "Smith MR, Saad F, Egerdie B, et al.",
+      "title": "Sarcopenia during androgen-deprivation therapy for prostate cancer",
+      "journal": "J Clin Oncol", "year": 2012, "volume": "30", "pages": "3271", "why": ""
+    },
+    {
+      "id": "B1.7", "level": "B", "block": "B1", "block_title": "Метаболизм, состав тела, диабет",
+      "stars": 0, "first_author": "Leong",
+      "authors": "Leong DP, Fradet V, Niazi T, et al.",
+      "title": "Adiposity and Muscle Strength in Men With Prostate Cancer and Cardiovascular Outcomes",
+      "journal": "JACC CardioOncol", "year": 2024, "volume": "6", "pages": "761", "why": ""
+    },
+
+    {
+      "id": "B2.1", "level": "B", "block": "B2", "block_title": "Кардиореспираторная выносливость, физнагрузка, недолечивание ФР",
+      "stars": 0, "first_author": "Gong",
+      "authors": "Gong J, Payne D, Caron J, et al.",
+      "title": "Reduced Cardiorespiratory Fitness and Increased Cardiovascular Mortality After Prolonged Androgen Deprivation Therapy for Prostate Cancer",
+      "journal": "JACC CardioOncol", "year": 2020, "volume": "2", "pages": "553", "why": ""
+    },
+    {
+      "id": "B2.2", "level": "B", "block": "B2", "block_title": "Кардиореспираторная выносливость, физнагрузка, недолечивание ФР",
+      "stars": 0, "first_author": "Sun",
+      "authors": "Sun L, Parikh RB, Hubbard RA, et al.",
+      "title": "Assessment and Management of Cardiovascular Risk Factors Among US Veterans With Prostate Cancer",
+      "journal": "JAMA Netw Open", "year": 2021, "volume": "4", "pages": "e210070", "why": ""
+    },
+    {
+      "id": "B2.3", "level": "B", "block": "B2", "block_title": "Кардиореспираторная выносливость, физнагрузка, недолечивание ФР",
+      "stars": 0, "first_author": "Cormie",
+      "authors": "Cormie P, Zopf EM.",
+      "title": "Exercise medicine for the management of androgen deprivation therapy-related side effects in prostate cancer",
+      "journal": "Urol Oncol", "year": 2020, "volume": "38", "pages": "62", "why": ""
+    },
+    {
+      "id": "B2.4", "level": "B", "block": "B2", "block_title": "Кардиореспираторная выносливость, физнагрузка, недолечивание ФР",
+      "stars": 0, "first_author": "Cohen",
+      "authors": "Cohen JB, Geara AS, Hogan JJ, Townsend RR.",
+      "title": "Hypertension in Cancer Patients and Survivors: Epidemiology, Diagnosis, and Management",
+      "journal": "JACC CardioOncol", "year": 2019, "volume": "1", "pages": "238",
+      "why": "Практический выбор антигипертензивных, запрет верапамила/дилтиазема"
+    },
+    {
+      "id": "B2.5", "level": "B", "block": "B2", "block_title": "Кардиореспираторная выносливость, физнагрузка, недолечивание ФР",
+      "stars": 0, "first_author": "Kaneko",
+      "authors": "Kaneko H, Yano Y, Lee H, et al.",
+      "title": "Blood Pressure Classification Using the 2017 ACC/AHA Guideline and Heart Failure in Patients With Cancer",
+      "journal": "J Clin Oncol", "year": 2023, "volume": "41", "pages": "980", "why": ""
+    },
+
+    {
+      "id": "B3.1", "level": "B", "block": "B3", "block_title": "Тромбоэмболии и ОПП",
+      "stars": 0, "first_author": "Nead",
+      "authors": "Nead KT, Boldbaatar N, Yang DD, et al.",
+      "title": "Association of Androgen Deprivation Therapy and Thromboembolic Events: A Systematic Review and Meta-analysis",
+      "journal": "Urology", "year": 2018, "volume": "114", "pages": "155", "why": ""
+    },
+    {
+      "id": "B3.2", "level": "B", "block": "B3", "block_title": "Тромбоэмболии и ОПП",
+      "stars": 0, "first_author": "Ehdaie",
+      "authors": "Ehdaie B, Atoria CL, Gupta A, et al.",
+      "title": "Androgen deprivation and thromboembolic events in men with prostate cancer",
+      "journal": "Cancer", "year": 2012, "volume": "118", "pages": "3397", "why": ""
+    },
+    {
+      "id": "B3.3", "level": "B", "block": "B3", "block_title": "Тромбоэмболии и ОПП",
+      "stars": 0, "first_author": "Crawford",
+      "authors": "Crawford ED, Moul JW.",
+      "title": "ADT risks and side effects in advanced prostate cancer: cardiovascular and acute renal injury",
+      "journal": "Oncology (Williston Park)", "year": 2015, "volume": "29", "pages": "55", "why": ""
+    },
+
+    {
+      "id": "B4.1", "level": "B", "block": "B4", "block_title": "Дуплеты и триплеты",
+      "stars": 0, "first_author": "Fizazi", "trial": "LATITUDE",
+      "authors": "Fizazi K, Tran N, Fein L, et al.",
+      "title": "Abiraterone acetate plus prednisone in patients with newly diagnosed high-risk metastatic castration-sensitive prostate cancer (LATITUDE): final overall survival analysis of a randomised, double-blind, phase 3 trial",
+      "journal": "Lancet Oncol", "year": 2019, "volume": "20", "pages": "686",
+      "why": "Источник цифр АГ ≥3 ст. 21% vs 10%, гипокалиемия 12% vs 2%"
+    },
+    {
+      "id": "B4.2", "level": "B", "block": "B4", "block_title": "Дуплеты и триплеты",
+      "stars": 0, "first_author": "Smith", "trial": "ARASENS",
+      "authors": "Smith MR, Hussain M, Saad F, et al.",
+      "title": "Darolutamide and Survival in Metastatic, Hormone-Sensitive Prostate Cancer",
+      "journal": "N Engl J Med", "year": 2022, "volume": "386", "pages": "1132", "why": ""
+    },
+    {
+      "id": "B4.3", "level": "B", "block": "B4", "block_title": "Дуплеты и триплеты",
+      "stars": 0, "first_author": "Hussain", "trial": "ARASENS",
+      "authors": "Hussain M, Tombal B, Saad F, et al.",
+      "title": "Darolutamide Plus Androgen-Deprivation Therapy and Docetaxel in Metastatic Hormone-Sensitive Prostate Cancer by Disease Volume and Risk Subgroups in the Phase III ARASENS Trial",
+      "journal": "J Clin Oncol", "year": 2023, "volume": "41", "pages": "3595",
+      "why": "НЯ 3–4 ст. 70% vs 61% в low-volume"
+    },
+    {
+      "id": "B4.4", "level": "B", "block": "B4", "block_title": "Дуплеты и триплеты",
+      "stars": 0, "first_author": "Fizazi", "trial": "PEACE-1",
+      "authors": "Fizazi K, Foulon S, Carles J, et al.",
+      "title": "Abiraterone plus prednisone added to androgen deprivation therapy and docetaxel in de novo metastatic castration-sensitive prostate cancer (PEACE-1): a multicentre, open-label, randomised, phase 3 study with a 2 x 2 factorial design",
+      "journal": "Lancet", "year": 2022, "volume": "399", "pages": "1695",
+      "why": "Рост АГ"
+    },
+    {
+      "id": "B4.5", "level": "B", "block": "B4", "block_title": "Дуплеты и триплеты",
+      "stars": 0, "first_author": "Saad", "trial": "ARANOTE",
+      "authors": "Saad F, Vjaters E, Shore N, et al.",
+      "title": "Darolutamide in Combination With Androgen-Deprivation Therapy in Patients With Metastatic Hormone-Sensitive Prostate Cancer From the Phase III ARANOTE Trial",
+      "journal": "J Clin Oncol", "year": 2024, "volume": "42", "pages": "4271", "why": ""
+    },
+    {
+      "id": "B4.6", "level": "B", "block": "B4", "block_title": "Дуплеты и триплеты",
+      "stars": 0, "first_author": "Davis", "trial": "ENZAMET",
+      "authors": "Davis ID, Martin AJ, Stockler MR, et al.",
+      "title": "Enzalutamide with Standard First-Line Therapy in Metastatic Prostate Cancer",
+      "journal": "N Engl J Med", "year": 2019, "volume": "381", "pages": "121", "why": ""
+    },
+    {
+      "id": "B4.7", "level": "B", "block": "B4", "block_title": "Дуплеты и триплеты",
+      "stars": 0, "first_author": "Wang",
+      "authors": "Wang L, Paller CJ, Hong H, et al.",
+      "title": "Comparison of Systemic Treatments for Metastatic Castration-Sensitive Prostate Cancer: A Systematic Review and Network Meta-analysis",
+      "journal": "JAMA Oncol", "year": 2021, "volume": "7", "pages": "412",
+      "why": "Доцетаксел даёт 23-кратно больше серьёзных НЯ"
+    },
+    {
+      "id": "B4.8", "level": "B", "block": "B4", "block_title": "Дуплеты и триплеты",
+      "stars": 0, "first_author": "Kunath",
+      "authors": "Kunath F, Jensen K, Pinart M, et al.",
+      "title": "Early versus deferred standard androgen suppression therapy for advanced hormone-sensitive prostate cancer",
+      "journal": "Cochrane Database Syst Rev", "year": 2019, "volume": "6", "pages": "CD003506",
+      "why": "Единственная цифра по ХСН: RR 1,90 (1,09–3,33)"
+    },
+    {
+      "id": "B4.9", "level": "B", "block": "B4", "block_title": "Дуплеты и триплеты",
+      "stars": 0, "first_author": "Freedland", "trial": "EMBARK",
+      "authors": "Freedland SJ, de Almeida Luz M, De Giorgi U, et al.",
+      "title": "Improved Outcomes with Enzalutamide in Biochemically Recurrent Prostate Cancer",
+      "journal": "N Engl J Med", "year": 2023, "volume": "389", "pages": "1453",
+      "why": "Энзалутамид-моно как ADT-free опция"
+    },
+
+    {
+      "id": "B5.1", "level": "B", "block": "B5", "block_title": "Радиолигандная терапия",
+      "stars": 0, "first_author": "Sartor", "trial": "VISION",
+      "authors": "Sartor O, de Bono J, Chi KN, et al.",
+      "title": "Lutetium-177-PSMA-617 for Metastatic Castration-Resistant Prostate Cancer",
+      "journal": "N Engl J Med", "year": 2021, "volume": "385", "pages": "1091", "why": ""
+    },
+    {
+      "id": "B5.2", "level": "B", "block": "B5", "block_title": "Радиолигандная терапия",
+      "stars": 0, "first_author": "Hofman", "trial": "TheraP",
+      "authors": "Hofman MS, Emmett L, Sandhu S, et al.",
+      "title": "[177Lu]Lu-PSMA-617 versus cabazitaxel in patients with metastatic castration-resistant prostate cancer (TheraP): a randomised, open-label, phase 2 trial",
+      "journal": "Lancet", "year": 2021, "volume": "397", "pages": "797", "why": ""
+    },
+    {
+      "id": "B5.3", "level": "B", "block": "B5", "block_title": "Радиолигандная терапия",
+      "stars": 0, "first_author": "Parker", "trial": "ALSYMPCA",
+      "authors": "Parker C, Nilsson S, Heinrich D, et al.",
+      "title": "Alpha emitter radium-223 and survival in metastatic prostate cancer",
+      "journal": "N Engl J Med", "year": 2013, "volume": "369", "pages": "213", "why": ""
+    },
+    {
+      "id": "B5.4", "level": "B", "block": "B5", "block_title": "Радиолигандная терапия",
+      "stars": 0, "first_author": "Tombal", "trial": "PEACE-3",
+      "authors": "Tombal B, Choudhury A, Saad F, et al.",
+      "title": "Enzalutamide plus radium-223 in metastatic castration-resistant prostate cancer: PEACE-3",
+      "journal": "Ann Oncol", "year": 2025, "volume": "36", "pages": "1058", "why": ""
+    },
+
+    {
+      "id": "B6.1", "level": "B", "block": "B6", "block_title": "Кросс-резистентность и последовательность АРПИ",
+      "stars": 0, "first_author": "Khalaf",
+      "authors": "Khalaf DJ, Annala M, Taavitsainen S, et al.",
+      "title": "Optimal sequencing of enzalutamide and abiraterone acetate plus prednisone in metastatic castration-resistant prostate cancer: a multicentre, randomised, open-label, phase 2, crossover trial",
+      "journal": "Lancet Oncol", "year": 2019, "volume": "20", "pages": "1730", "why": ""
+    },
+    {
+      "id": "B6.2", "level": "B", "block": "B6", "block_title": "Кросс-резистентность и последовательность АРПИ",
+      "stars": 0, "first_author": "Loriot",
+      "authors": "Loriot Y, Bianchini D, Ileana E, et al.",
+      "title": "Antitumour activity of abiraterone acetate against metastatic castration-resistant prostate cancer progressing after docetaxel and enzalutamide (MDV3100)",
+      "journal": "Ann Oncol", "year": 2013, "volume": "24", "pages": "1807", "why": ""
+    },
+    {
+      "id": "B6.3", "level": "B", "block": "B6", "block_title": "Кросс-резистентность и последовательность АРПИ",
+      "stars": 0, "first_author": "Annala",
+      "authors": "Annala M, Fu S, Bacon JVW, et al.",
+      "title": "Cabazitaxel versus abiraterone or enzalutamide in poor prognosis metastatic castration-resistant prostate cancer: a multicentre, randomised, open-label, phase II trial",
+      "journal": "Ann Oncol", "year": 2021, "volume": "32", "pages": "896", "why": ""
+    },
+
+    {
+      "id": "B7.1", "level": "B", "block": "B7", "block_title": "Коморбидность, гериатрия, прогноз",
+      "stars": 0, "first_author": "Boyle",
+      "authors": "Boyle HJ, Alibhai S, Decoster L, et al.",
+      "title": "Updated recommendations of the International Society of Geriatric Oncology on prostate cancer management in older patients",
+      "journal": "Eur J Cancer", "year": 2019, "volume": "116", "pages": "116", "why": ""
+    },
+    {
+      "id": "B7.2", "level": "B", "block": "B7", "block_title": "Коморбидность, гериатрия, прогноз",
+      "stars": 0, "first_author": "Nguyen",
+      "authors": "Nguyen PL, Alibhai SM, Basaria S, et al.",
+      "title": "Adverse effects of androgen deprivation therapy and strategies to mitigate them",
+      "journal": "Eur Urol", "year": 2015, "volume": "67", "pages": "825", "why": ""
+    },
+    {
+      "id": "B7.3", "level": "B", "block": "B7", "block_title": "Коморбидность, гериатрия, прогноз",
+      "stars": 0, "first_author": "Halabi",
+      "authors": "Halabi S, Kelly WK, Ma H, et al.",
+      "title": "Meta-Analysis Evaluating the Impact of Site of Metastasis on Overall Survival in Men With Castration-Resistant Prostate Cancer",
+      "journal": "J Clin Oncol", "year": 2016, "volume": "34", "pages": "1652",
+      "why": "ОВ 31,6 / 21,3 / 19,4 / 13,5 мес"
+    },
+    {
+      "id": "B7.4", "level": "B", "block": "B7", "block_title": "Коморбидность, гериатрия, прогноз",
+      "stars": 0, "first_author": "Hamdy", "trial": "ProtecT",
+      "authors": "Hamdy FC, Donovan JL, Lane JA, et al.",
+      "title": "Fifteen-Year Outcomes after Monitoring, Surgery, or Radiotherapy for Prostate Cancer",
+      "journal": "N Engl J Med", "year": 2023, "volume": "388", "pages": "1547", "why": ""
+    },
+    {
+      "id": "B7.5", "level": "B", "block": "B7", "block_title": "Коморбидность, гериатрия, прогноз",
+      "stars": 0, "first_author": "Thurtle", "trial": "PREDICT Prostate",
+      "authors": "Thurtle DR, Greenberg DC, Lee LS, et al.",
+      "title": "Individual prognosis at diagnosis in nonmetastatic prostate cancer: Development and external validation of the PREDICT Prostate multivariable model",
+      "journal": "PLoS Med", "year": 2019, "volume": "16", "pages": "e1002758",
+      "why": "Разделяет смерть от РПЖ и от других причин"
+    },
+    {
+      "id": "B7.6", "level": "B", "block": "B7", "block_title": "Коморбидность, гериатрия, прогноз",
+      "stars": 0, "first_author": "Fendler",
+      "authors": "Fendler WP, Weber M, Iravani A, et al.",
+      "title": "Prostate-Specific Membrane Antigen Ligand Positron Emission Tomography in Men with Nonmetastatic Castration-Resistant Prostate Cancer",
+      "journal": "Clin Cancer Res", "year": 2019, "volume": "25", "pages": "7448",
+      "why": "98% ПЭТ+, 55% М1"
+    },
+
+    {
+      "id": "E1", "level": "E", "block": "E", "block_title": "Внешние источники",
+      "stars": 1, "first_author": "Lyon",
+      "authors": "Lyon AR, López-Fernández T, Couch LS, et al.",
+      "title": "2022 ESC Guidelines on cardio-oncology developed in collaboration with the European Hematology Association (EHA), the European Society for Therapeutic Radiology and Oncology (ESTRO) and the International Cardio-Oncology Society (IC-OS)",
+      "journal": "Eur Heart J", "year": 2022, "volume": "43", "pages": "4229",
+      "why": "Действующие европейские рекомендации: HFA-ICOS baseline risk assessment, алгоритмы мониторинга, определение CTR-CVT"
+    },
+    {
+      "id": "E2", "level": "E", "block": "E", "block_title": "Внешние источники",
+      "stars": 0, "manual": true, "first_author": "МЗ РФ",
+      "authors": "Минздрав России",
+      "title": "Клинические рекомендации «Рак предстательной железы» (актуальная версия)",
+      "journal": "Рубрикатор клинических рекомендаций МЗ РФ", "year": null, "volume": "", "pages": "",
+      "manual_url": "https://cr.minzdrav.gov.ru/schema/,",
+      "why": "Обязательная нормативная рамка для российской аудитории вебинара. В Crossref/PubMed отсутствует — качать вручную с рубрикатора"
+    },
+    {
+      "id": "E3", "level": "E", "block": "E", "block_title": "Внешние источники",
+      "stars": 0, "manual": true, "first_author": "МЗ РФ",
+      "authors": "Минздрав России / РКО",
+      "title": "Клинические рекомендации по хронической сердечной недостаточности и по артериальной гипертензии у взрослых",
+      "journal": "Рубрикатор клинических рекомендаций МЗ РФ", "year": null, "volume": "", "pages": "",
+      "manual_url": "https://cr.minzdrav.gov.ru/schema/,",
+      "why": "Целевые уровни АД и ЛПНП, на которые можно ссылаться перед аудиторией онкологов"
+    },
+    {
+      "id": "E4", "level": "E", "block": "E", "block_title": "Внешние источники",
+      "stars": 0, "manual": true, "first_author": "ГРЛС",
+      "authors": "ГРЛС РФ",
+      "title": "Инструкция по медицинскому применению энзалутамида",
+      "journal": "Государственный реестр лекарственных средств", "year": null, "volume": "", "pages": "",
+      "manual_url": "https://grls.rosminzdrav.ru/Default.aspx",
+      "why": "Российская формулировка показаний, противопоказаний и взаимодействий — для юридической корректности слайда"
+    },
+    {
+      "id": "E5", "level": "E", "block": "E", "block_title": "Внешние источники",
+      "stars": 0, "manual": true, "first_author": "ГРЛС",
+      "authors": "ГРЛС РФ",
+      "title": "Инструкция по медицинскому применению абиратерона",
+      "journal": "Государственный реестр лекарственных средств", "year": null, "volume": "", "pages": "",
+      "manual_url": "https://grls.rosminzdrav.ru/Default.aspx",
+      "why": "Формулировка предостережения при ХСН и гипокалиемии"
+    },
+    {
+      "id": "E6", "level": "E", "block": "E", "block_title": "Внешние источники",
+      "stars": 0, "manual": true, "search_query": true, "first_author": "PubMed",
+      "authors": "—",
+      "title": "Свежий метаанализ MACE для АРПИ 2 поколения при мКРРПЖ (2023–2026)",
+      "journal": "PubMed search", "year": null, "volume": "", "pages": "",
+      "manual_url": "https://pubmed.ncbi.nlm.nih.gov/?term=%22androgen+receptor+pathway+inhibitor%22+AND+%22major+adverse+cardiovascular+events%22+AND+meta-analysis",
+      "why": "В UpToDate прямых MACE-данных для энза/апа/даро нет — главный содержательный пробел. Это поисковый запрос, а не конкретная статья"
+    }
+  ]
+}
