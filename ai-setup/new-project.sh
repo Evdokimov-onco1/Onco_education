@@ -44,6 +44,7 @@ if [ "$KIND" = "анализ" ]; then
   copy "$ROOT/templates/analiz/AGENTS.md"  "$TARGET/AGENTS.md"
   copy "$ROOT/templates/analiz/README.md"  "$TARGET/README.md"
   copy "$ROOT/templates/analiz/gitignore"  "$TARGET/.gitignore"
+  copy "$ROOT/templates/analiz/pdn.conf"   "$TARGET/.ai/pdn.conf"
   for d in data/raw data/public scripts out; do
     mkdir -p "$TARGET/$d"
     echo "  папка: $TARGET/$d"
