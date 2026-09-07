@@ -1,0 +1,14 @@
+# Сырые данные — никогда в git.
+data/raw/
+data/private/
+
+# Обезличенное — можно, поэтому исключение из глобальных правил.
+!data/public/
+!data/public/*.csv
+!data/public/*.xlsx
+
+# Промежуточное
+out/tmp/
+__pycache__/
+.venv/
+.ipynb_checkpoints/

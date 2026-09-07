@@ -1,0 +1,154 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Проверка коммита на персональные данные пациентов.
+
+Не запрещает, а предупреждает и спрашивает. Если терминал доступен — задаёт
+вопрос; если запущено агентом или скриптом — останавливает коммит с объяснением,
+чтобы вопрос дошёл до человека, а не потерялся в логе.
+
+Пропустить осознанно:  PDN_OK=1 git commit ...
+Исключения по именам:  ~/ai-setup/git/pdn-allow.txt  и  .ai/pdn-allow.txt в проекте
+"""
+import os
+import re
+import subprocess
+import sys
+
+if os.environ.get("PDN_OK") == "1":
+    sys.exit(0)
+
+# --- что ищем в содержимом ---
+ПРАВИЛА = [
+    ("СНИЛС",        re.compile(r"\b\d{3}-\d{3}-\d{3}[ -]\d{2}\b")),
+    ("полис ОМС",    re.compile(r"\b\d{16}\b")),
+    ("паспорт",      re.compile(r"\b\d{4}\s?\d{6}\b")),
+    ("телефон",      re.compile(r"\+7\s?\(?\d{3}\)?[\s-]?\d{3}[\s-]?\d{2}[\s-]?\d{2}")),
+    ("ФИО",          re.compile(r"\b[А-ЯЁ][а-яё]{2,}\s+[А-ЯЁ]\.\s?[А-ЯЁ]\.")),
+    ("ФИО полное",   re.compile(r"\b[А-ЯЁ][а-яё]{2,}\s+[А-ЯЁ][а-яё]{2,}\s+"
+                                r"[А-ЯЁ][а-яё]+(?:ович|евич|ьич|овна|евна|ична|инична)\b")),
+]
+
+# --- форматы, в которых обычно приезжают выгрузки ---
+РИСКОВЫЕ_РАСШИРЕНИЯ = {".xlsx", ".xls", ".csv", ".dbf", ".mdb", ".dcm"}
+РИСКОВЫЕ_ИМЕНА = re.compile(r"выгрузк|эмк|пациент|больн|диспансер", re.IGNORECASE)
+
+
+def читать_исключения():
+    исключения = set()
+    пути = [
+        os.path.expanduser("~/ai-setup/git/pdn-allow.txt"),
+        os.path.join(os.getcwd(), ".ai", "pdn-allow.txt"),
+    ]
+    for путь in пути:
+        try:
+            with open(путь, encoding="utf-8") as f:
+                for строка in f:
+                    строка = строка.strip()
+                    if строка and not строка.startswith("#"):
+                        исключения.add(строка)
+        except OSError:
+            pass
+    return исключения
+
+
+def маска(текст):
+    """Прячет значение: в терминал и в лог агента не должно попасть само ПДн."""
+    текст = текст.strip()
+    if len(текст) <= 4:
+        return "…"
+    return текст[:2] + "…" + текст[-2:]
+
+
+def файлы_в_коммите():
+    # -z обязателен: без него git экранирует кириллические имена в вид
+    # "\320\277\320\260..." и такой путь потом не открывается.
+    out = subprocess.run(
+        ["git", "diff", "--cached", "--name-only", "-z", "--diff-filter=ACM"],
+        capture_output=True, check=False,
+    )
+    пути = out.stdout.decode("utf-8", errors="replace").split("\0")
+    return [п for п in пути if п.strip()]
+
+
+def содержимое(путь):
+    out = subprocess.run(["git", "show", ":" + путь], capture_output=True, check=False)
+    if out.returncode != 0:
+        return None
+    try:
+        return out.stdout.decode("utf-8")
+    except UnicodeDecodeError:
+        return None          # двоичный файл — содержимое не проверяем
+
+
+def main():
+    исключения = читать_исключения()
+    находки = []
+
+    for путь in файлы_в_коммите():
+        имя = os.path.basename(путь)
+        расширение = os.path.splitext(имя)[1].lower()
+
+        if расширение in РИСКОВЫЕ_РАСШИРЕНИЯ:
+            находки.append((путь, 0, "формат выгрузки", расширение))
+        elif РИСКОВЫЕ_ИМЕНА.search(имя):
+            находки.append((путь, 0, "имя файла", имя))
+
+        текст = содержимое(путь)
+        if текст is None:
+            continue
+
+        for номер, строка in enumerate(текст.splitlines(), 1):
+            for тип, шаблон in ПРАВИЛА:
+                for совпадение in шаблон.finditer(строка):
+                    значение = совпадение.group(0)
+                    if значение.strip() in исключения:
+                        continue
+                    находки.append((путь, номер, тип, маска(значение)))
+                    break        # одного совпадения этого типа в строке достаточно
+
+    if not находки:
+        return 0
+
+    print("", file=sys.stderr)
+    print("  Похоже на персональные данные в том, что вы коммитите:", file=sys.stderr)
+    print("", file=sys.stderr)
+    for путь, номер, тип, фрагмент in находки[:25]:
+        место = f"{путь}:{номер}" if номер else путь
+        print(f"    {место}  —  {тип}: {фрагмент}", file=sys.stderr)
+    if len(находки) > 25:
+        print(f"    … и ещё {len(находки) - 25}", file=sys.stderr)
+
+    print("", file=sys.stderr)
+    print("  Репозиторий может быть публичным, а история git хранится вечно:", file=sys.stderr)
+    print("  удалить файл следующим коммитом недостаточно.", file=sys.stderr)
+    print("", file=sys.stderr)
+
+    # Если есть живой терминал — спрашиваем.
+    try:
+        with open("/dev/tty") as tty:
+            print("  Коммитить всё равно? [y/N] ", end="", file=sys.stderr, flush=True)
+            ответ = tty.readline().strip().lower()
+        if ответ in ("y", "yes", "д", "да"):
+            print("  Хорошо, коммичу.", file=sys.stderr)
+            return 0
+        print("  Отменено. Файл остался на месте, из коммита убран не был —", file=sys.stderr)
+        print("  уберите его командой:  git restore --staged <файл>", file=sys.stderr)
+        return 1
+    except OSError:
+        pass
+
+    # Терминала нет (агент, скрипт, IDE) — останавливаемся, чтобы вопрос дошёл до человека.
+    print("  Коммит остановлен, потому что спросить некого.", file=sys.stderr)
+    print("  Файлы на диске не тронуты. Дальше на выбор:", file=sys.stderr)
+    print("", file=sys.stderr)
+    print("    убрать из коммита   git restore --staged <файл>", file=sys.stderr)
+    print("    скрыть навсегда     добавить путь в ~/ai-setup/git/gitignore_global", file=sys.stderr)
+    print("    это не ПДн          вписать строку в .ai/pdn-allow.txt", file=sys.stderr)
+    print("    всё равно коммитить PDN_OK=1 git commit ...", file=sys.stderr)
+    print("", file=sys.stderr)
+    return 1
+
+
+if __name__ == "__main__":
+    sys.exit(main())

@@ -27,5 +27,18 @@
       "Read(./.env.*)",
       "Read(./**/*credentials*)"
     ]
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$HOME/ai-setup/hooks/session-start.sh",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
   }
 }
